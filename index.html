@@ -169,7 +169,7 @@
           background: linear-gradient( to top, var(--background-primary) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100% );
           position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         }
-        .artist-header-content { position: relative; z-index: 1; padding: 0 16px; margin-top: -100px; margin-bottom: 32px; }
+        .artist-header-content { position: relative; z-index: 1; padding: 0 16px; margin-top: -100px; margin-bottom: 32px; text-align: left; }
         
         #detailName { 
           font-size: clamp(32px, 6vw + 1rem, 80px);
@@ -215,8 +215,8 @@
         .artist-link { font-weight: 700; cursor: pointer; color: var(--text-primary); text-decoration: none;}
         .artist-link:hover { text-decoration: underline; }
 
-        /* Detalhe Álbum */
-        .album-header { text-align: left; height: auto; padding: 100px 24px 24px; position: relative; overflow: hidden; display: flex; align-items: flex-end; gap: 24px; }
+        /* Detalhe Álbum (Mobile Centered) */
+        .album-header { text-align: center; padding: 100px 16px 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;}
         .album-header .header-bg {
           position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover;
           background-position: center; filter: blur(30px) brightness(0.4); transform: scale(1.2);
@@ -225,25 +225,26 @@
           position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
           background: linear-gradient( to top, var(--background-primary) 0%, rgba(0,0,0, 0.4) 100%);
         }
-        .album-header-content { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: 24px;}
+        .album-header-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%;}
         
         #albumDetailCover {
-          width: 232px; height: 232px; object-fit: cover; border-radius: 4px;
-          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); flex-shrink: 0;
+          width: 200px; height: 200px; object-fit: cover; border-radius: 4px;
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); flex-shrink: 0; margin: 0 auto;
         }
-        .album-text-info { display: flex; flex-direction: column; justify-content: flex-end;}
+        .album-text-info { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; }
         .album-type-label { font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;}
         
         #albumDetailTitle { 
-          font-size: clamp(32px, 6vw + 1rem, 80px);
+          font-size: clamp(28px, 6vw + 1rem, 40px);
           font-weight: 900; 
           letter-spacing: -0.04em; 
-          margin-bottom: 12px; 
-          line-height: 1.1; 
+          margin-bottom: 4px; 
+          line-height: 1.2; 
           word-break: break-word;
           text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          text-align: center;
         }
-        #albumDetailInfo { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500;}
+        #albumDetailInfo { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; text-align: center;}
 
         /* WYSIWYG Estúdio Inputs */
         .wysiwyg-input {
@@ -275,6 +276,10 @@
             background: rgba(0, 0, 0, 0.7);
             border-color: rgba(255, 255, 255, 0.5);
         }
+
+        /* Override específico para Headers do Editor (mantém a lógica responsiva) */
+        #wysiwygReleaseForm .album-header, #editReleaseForm .album-header { flex-direction: column; align-items: center; text-align: center; }
+        #wysiwygReleaseForm .album-header-content, #editReleaseForm .album-header-content { flex-direction: column; align-items: center; text-align: center; }
 
         /* --- CARROSSEL HORIZONTAL E LISTAS --- */
         .horizontal-scroll-list {
@@ -627,11 +632,15 @@
 
           .back-btn { left: 284px; top: 24px; background: rgba(0,0,0,0.5);}
           
-          .album-header { padding: 100px 32px 32px; flex-direction: row; align-items: flex-end;}
-          .album-header-content { display: flex; align-items: flex-end; gap: 24px;}
+          .album-header { flex-direction: row; align-items: flex-end; text-align: left; padding: 100px 32px 32px; }
+          .album-header-content { flex-direction: row; align-items: flex-end; gap: 24px; text-align: left;}
           #albumDetailCover { width: 232px; height: 232px; margin: 0;}
-          .album-text-info { display: flex; flex-direction: column;}
-          #albumDetailTitle { font-size: 80px; margin-bottom: 8px;}
+          #albumDetailTitle { font-size: 80px; text-align: left; margin-bottom: 8px;}
+          #albumDetailInfo { text-align: left; }
+          #albumNormalInfoContainer .main-play-btn { margin: 16px 0 0 !important; }
+
+          #wysiwygReleaseForm .album-header, #editReleaseForm .album-header { flex-direction: row; align-items: flex-end; text-align: left; }
+          #wysiwygReleaseForm .album-header-content, #editReleaseForm .album-header-content { flex-direction: row; align-items: flex-end; text-align: left; }
 
           #musicPlayer {
             background: linear-gradient(180deg, #282828 0%, var(--background-primary) 60%);
@@ -828,19 +837,19 @@
             <div class="header-overlay"></div>
         </header>
         <div class="artist-header-content">
-            <div class="verified-artist"><i class="fas fa-check-circle"></i> Artista Verificado</div>
             <h1 id="detailName">Nome do Artista</h1>
+            <div class="verified-artist"><i class="fas fa-check-circle"></i> Artista Verificado</div>
             <div class="page-actions">
-                <button class="main-play-btn"><i class="fas fa-play" style="margin-left:4px;"></i></button>
-                <button class="follow-btn">Seguir</button>
+                <button class="main-play-btn"><i class="fas fa-play" style="margin-left: 4px;"></i></button>
+                <button class="follow-btn">SEGUIR</button>
             </div>
         </div>
         <div class="page-detail-body">
-            <h3 class="section-title">Populares</h3>
+            <h3 class="section-title">Popular</h3>
             <div id="popularSongsList" class="popular-songs-list"></div>
 
             <div class="section-header" style="margin-top: 40px;">
-                <h3 class="section-title">Lançamentos</h3>
+                <h3 class="section-title">Álbuns</h3>
                 <span class="see-all-btn discography-link" data-discog-type="albums">Mostrar Tudo</span>
             </div>
             <div id="albumsList" class="horizontal-scroll-list"></div>
@@ -863,23 +872,18 @@
             <div class="header-overlay"></div>
             <div class="album-header-content">
                 <img id="albumDetailCover" src="https://i.imgur.com/AD3MbBi.png" alt="Capa do Álbum" />
-                <div class="album-text-info">
-                    <p class="album-type-label">Álbum</p>
-                    <h1 id="albumDetailTitle">Nome do Álbum</h1>
-                    <div id="albumNormalInfoContainer">
-                        <p id="albumDetailInfo">Por Artista • 2025</p>
-                    </div>
-                    <div id="albumCountdownContainer" class="hidden">
-                        <div id="albumCountdownTimer" style="display:flex; gap:16px; margin-top:16px;"></div>
-                        <p class="release-date-text" style="margin-top:8px;">Lançamento em <span id="albumCountdownReleaseDate"></span></p>
-                    </div>
+                <h1 id="albumDetailTitle">Nome do Álbum</h1>
+                <div id="albumNormalInfoContainer">
+                    <p id="albumDetailInfo">Por Artista • 2025</p>
+                    <button class="main-play-btn" style="margin: 16px auto 0;"><i class="fas fa-play" style="margin-left: 2px;"></i></button>
+                </div>
+                <div id="albumCountdownContainer" class="hidden">
+                    <div id="albumCountdownTimer" style="display:flex; gap:16px; margin-top:16px; justify-content:center;"></div>
+                    <p class="release-date-text" style="margin-top:8px;">Lançamento em <span id="albumCountdownReleaseDate"></span></p>
                 </div>
             </div>
         </header>
         <div class="page-detail-body">
-            <div style="padding: 24px 0;">
-                <button class="main-play-btn"><i class="fas fa-play" style="margin-left:4px;"></i></button>
-            </div>
             <div id="albumTracklist" class="tracklist-container"></div>
         </div>
     </div>
@@ -946,7 +950,7 @@
                             
                             <div class="album-header-content" style="width: 100%; flex-wrap: wrap;">
                                 <!-- Cover Upload -->
-                                <div style="position: relative; width: 200px; height: 200px; flex-shrink: 0; cursor: pointer; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);" onclick="document.getElementById('wysiwygCoverFile').click()">
+                                <div style="position: relative; width: 200px; height: 200px; flex-shrink: 0; cursor: pointer; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); margin: 0 auto;" onclick="document.getElementById('wysiwygCoverFile').click()">
                                     <img id="wysiwygCoverImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
                                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; border-radius: 4px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
                                         <i class="fas fa-camera" style="font-size: 32px; margin-bottom: 8px;"></i>
@@ -963,9 +967,9 @@
                                         <option value="album">ÁLBUM</option>
                                     </select>
                                     
-                                    <input type="text" id="wysiwygTitle" class="wysiwyg-input" placeholder="Nome do Lançamento" required style="font-size: clamp(32px, 6vw + 1rem, 64px); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.3); border-bottom: 1px dashed rgba(255,255,255,0.3);" />
+                                    <input type="text" id="wysiwygTitle" class="wysiwyg-input" placeholder="Nome do Lançamento" required style="font-size: clamp(28px, 6vw + 1rem, 40px); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.3); border-bottom: 1px dashed rgba(255,255,255,0.3); text-align: center;" />
                                     
-                                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
                                         <img id="wysiwygArtistImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" />
                                         <select id="wysiwygArtistSelect" class="wysiwyg-select" required style="border-bottom: 1px dashed rgba(255,255,255,0.3);">
                                             <!-- Options populated dynamically -->
@@ -974,7 +978,7 @@
                                         <input type="datetime-local" id="wysiwygReleaseDate" class="wysiwyg-input" required style="width: auto; color: rgba(255,255,255,0.8); font-weight: 500; font-size: 14px; border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 4px;" />
                                     </div>
 
-                                    <div style="margin-top: 16px; display: flex; align-items: center; gap: 16px;">
+                                    <div style="margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 16px;">
                                         <label style="font-size: 13px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 8px;">
                                             <input type="checkbox" id="wysiwygToggleDeluxe"> É versão Deluxe?
                                         </label>
@@ -1027,7 +1031,7 @@
                                 <div class="header-overlay" style="background: linear-gradient(to top, var(--background-secondary) 0%, rgba(0,0,0,0.4) 100%);"></div>
                                 
                                 <div class="album-header-content" style="width: 100%; flex-wrap: wrap;">
-                                    <div style="position: relative; width: 200px; height: 200px; flex-shrink: 0; cursor: pointer; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);" onclick="document.getElementById('editReleaseCoverFile').click()">
+                                    <div style="position: relative; width: 200px; height: 200px; flex-shrink: 0; cursor: pointer; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); margin: 0 auto;" onclick="document.getElementById('editReleaseCoverFile').click()">
                                         <img id="editWysiwygCoverImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
                                         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; border-radius: 4px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
                                             <i class="fas fa-camera" style="font-size: 32px; margin-bottom: 8px;"></i>
@@ -1040,9 +1044,9 @@
                                     <div class="album-text-info" style="flex-grow: 1; min-width: 250px;">
                                         <p class="album-type-label">Editando Lançamento</p>
                                         
-                                        <input type="text" id="editReleaseTitle" class="wysiwyg-input" required style="font-size: clamp(32px, 6vw + 1rem, 64px); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.3); border-bottom: 1px dashed rgba(255,255,255,0.3);" />
+                                        <input type="text" id="editReleaseTitle" class="wysiwyg-input" required style="font-size: clamp(28px, 6vw + 1rem, 40px); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.3); border-bottom: 1px dashed rgba(255,255,255,0.3); text-align: center;" />
                                         
-                                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
                                             <img id="editWysiwygArtistImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" />
                                             <strong id="editArtistNameDisplay" style="color: white;">Artista</strong>
                                             <span style="color: rgba(255,255,255,0.8);">•</span>
@@ -4206,8 +4210,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                          </span>
                     </div>
                     <div style="display:flex; gap:8px;">
-                        <button class="circle-btn edit-release-btn" data-release-id="${release.id}" data-release-type="${release.type}" data-release-table="${release.tableName}"><i class="fas fa-pencil-alt"></i></button>
-                        <button class="circle-btn delete-release-btn" style="color:var(--trend-down-red);" data-release-id="${release.id}" data-release-type="${release.type}" data-release-table="${release.tableName}" data-release-title="${release.title}"><i class="fas fa-trash-alt"></i></button>
+                        <button type="button" class="circle-btn edit-release-btn" data-release-id="${release.id}" data-release-type="${release.type}" data-release-table="${release.tableName}"><i class="fas fa-pencil-alt"></i></button>
+                        <button type="button" class="circle-btn delete-release-btn" style="color:var(--trend-down-red);" data-release-id="${release.id}" data-release-type="${release.type}" data-release-table="${release.tableName}" data-release-title="${release.title}"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
             `).join('');
@@ -4356,7 +4360,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         finally { saveEditBtn.disabled = false; saveEditBtn.innerHTML = '<i class="fas fa-save"></i> Salvar'; }
     }
 
-
     function openDeleteConfirmModal(recordId, tableName, releaseTitle, trackIds) {
         if (!deleteConfirmModal) return;
         deleteRecordId.value = recordId; deleteTableName.value = tableName; deleteReleaseName.textContent = releaseTitle; deleteTrackIds.value = JSON.stringify(trackIds || []);
@@ -4379,7 +4382,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (!recordId || !tableName) { closeDeleteConfirmModal(); return; }
 
-        confirmDeleteBtn.disabled = true; confirmDeleteBtn.textContent = 'Apagando...';
+        confirmDeleteBtn.disabled = true; confirmDeleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
         try {
             if (associatedTrackIds.length > 0) {
@@ -4407,7 +4410,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else { throw new Error("Falha na exclusão."); }
 
         } catch (error) { alert(`Erro: ${error.message}`); closeDeleteConfirmModal(); } 
-        finally { confirmDeleteBtn.disabled = false; confirmDeleteBtn.textContent = 'Apagar'; }
+        finally { confirmDeleteBtn.disabled = false; confirmDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Sim, Apagar'; }
     }
 
 
@@ -4429,14 +4432,13 @@ document.addEventListener('DOMContentLoaded', async () => {
        if (currentQueueIndex === -1) { currentQueue = [song]; currentQueueIndex = 0; }
 
        loadSong(song);
-       maximizePlayer(); // Substitui as antigas chamadas
+       maximizePlayer(); 
        playAudio();
     }
 
     function closePlayer() {
         musicPlayerView?.classList.add('hidden');
         document.body.classList.remove('player-open');
-        // Ao fechar o player grande, mostramos o mini player se houver música
         if (currentSong) {
             miniPlayer?.classList.remove('hidden');
         }
@@ -4452,9 +4454,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!song) return;
         currentSong = song;
 
-        // Remove a classe 'playing' de todas as faixas para limpar seleções antigas
         document.querySelectorAll('.song-row.playing, .track-row.playing, .chart-item.playing').forEach(el => el.classList.remove('playing'));
-        // Adiciona a classe 'playing' na música que está sendo reproduzida agora
         document.querySelectorAll(`[data-song-id="${song.id}"]`).forEach(el => el.classList.add('playing'));
 
         const artistNameStr = formatArtistString(song.artistIds, song.collabType);
@@ -4603,6 +4603,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    function formatTime(totalSeconds) {
+        if (isNaN(totalSeconds) || totalSeconds < 0) return "0:00";
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.floor(totalSeconds % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
     // --- Simulation Timer ---
     let simulationInterval = null;
 
@@ -4666,6 +4673,26 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (albumCard) {
                 if (event.target.closest('.action-buttons') || albumCard.closest('#editReleaseList')) return;
                 openAlbumDetail(albumCard.dataset.albumId); return;
+            }
+
+            // Suporte para o botão principal de tocar na tela
+            const mainPlayBtn = event.target.closest('.main-play-btn');
+            if (mainPlayBtn) {
+                event.preventDefault();
+                const popularList = mainPlayBtn.closest('.page-view').querySelector('.popular-songs-list');
+                const albumTracklist = mainPlayBtn.closest('.page-view').querySelector('.tracklist-container');
+                let firstSong = null;
+
+                if (popularList) {
+                    firstSong = popularList.querySelector('.song-row.available');
+                } else if (albumTracklist) {
+                    firstSong = albumTracklist.querySelector('.track-row.available');
+                }
+
+                if (firstSong) {
+                    openPlayer(firstSong.dataset.songId, firstSong);
+                }
+                return;
             }
 
             const songRow = event.target.closest('.song-row[data-song-id], .track-row[data-song-id].available, .chart-item[data-song-id]');
