@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<!-- saved from url=(0043)https://www.lncc.br/~borges/php/testar.html -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify RPG - Charts &amp; Artists</title>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify RPG - Charts & Artists</title>
 
-    <link href="./Spotify RPG - Charts &amp; Artists_files/css2" rel="stylesheet">
-    <link rel="stylesheet" href="./Spotify RPG - Charts &amp; Artists_files/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
     <!-- Scripts Externos -->
-    <script src="./Spotify RPG - Charts &amp; Artists_files/Sortable.min.js.download"></script>
-    <script src="./Spotify RPG - Charts &amp; Artists_files/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         /* --- VARIAVEIS E ESTILOS GLOBAIS --- */
@@ -39,7 +39,7 @@
 
         .hidden { display: none !important; }
 
-        .main-container { padding-bottom: 120px; }
+        .main-container { padding-bottom: 140px; }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 12px; }
@@ -83,7 +83,7 @@
         .nav-tab.active { background-color: var(--text-primary); color: var(--background-primary); }
         .nav-tab:hover:not(.active) { background-color: #333; }
 
-        /* --- CONTE�DO PRINCIPAL E SE��ES --- */
+        /* --- CONTEÚDO PRINCIPAL E SEÇÕES --- */
         .content-section { display: none; padding: 20px 16px; animation: fadeIn 0.4s ease forwards; }
         .content-section.active { display: block; }
         .section-title { font-size: 24px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.04em; }
@@ -92,7 +92,7 @@
         .see-all-btn { font-size: 13px; font-weight: 700; color: var(--text-secondary); cursor: pointer; text-transform: uppercase; }
         .see-all-btn:hover { text-decoration: underline; color: var(--text-primary); }
 
-        /* --- GRADES DE ARTISTAS E �LBUNS --- */
+        /* --- GRADES DE ARTISTAS E ÁLBUNS --- */
         .artists-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
         
         .artist-card { 
@@ -149,7 +149,7 @@
         .chart-item .chart-item-artist { font-size: 14px; color: var(--text-secondary); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 4px;}
         .chart-item-duration, .chart-item-score { font-size: 14px; font-weight: 400; text-align: right; color: var(--text-secondary); font-variant-numeric: tabular-nums;}
 
-        /* --- P�GINAS DE DETALHES --- */
+        /* --- PÁGINAS DE DETALHES --- */
         .back-btn {
           background: rgba(0, 0, 0, 0.7); border: none; color: #fff; font-size: 16px;
           cursor: pointer; position: fixed; top: 16px; left: 16px; z-index: 101;
@@ -215,7 +215,7 @@
         .artist-link { font-weight: 700; cursor: pointer; color: var(--text-primary); text-decoration: none;}
         .artist-link:hover { text-decoration: underline; }
 
-        /* Detalhe �lbum */
+        /* Detalhe Álbum */
         .album-header { text-align: left; height: auto; padding: 100px 24px 24px; position: relative; overflow: hidden; display: flex; align-items: flex-end; gap: 24px; }
         .album-header .header-bg {
           position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover;
@@ -245,6 +245,37 @@
         }
         #albumDetailInfo { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500;}
 
+        /* WYSIWYG Estúdio Inputs */
+        .wysiwyg-input {
+            background: transparent;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            outline: none;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .wysiwyg-input:hover, .wysiwyg-input:focus {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        .wysiwyg-select {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: "Montserrat", sans-serif;
+            transition: all 0.2s;
+        }
+        .wysiwyg-select:hover {
+            background: rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
         /* --- CARROSSEL HORIZONTAL E LISTAS --- */
         .horizontal-scroll-list {
           display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px; margin: 0 -16px;
@@ -271,7 +302,7 @@
         .scroll-item p { font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; color: var(--text-primary);}
         .scroll-item span { font-size: 13px; color: var(--text-secondary); font-weight: 500;}
 
-        /* --- TRACKLIST (Detalhe �lbum) --- */
+        /* --- TRACKLIST (Detalhe Álbum) --- */
         .tracklist-container { margin-top: 16px; }
 
         .track-row {
@@ -304,6 +335,29 @@
         .track-row.available .track-title { color: var(--text-primary); }
         .track-row.available:hover .track-title { color: var(--text-primary); }
 
+        /* --- ESTADO "TOCANDO" (GREEN HIGHLIGHT) --- */
+        .track-row.playing .track-title,
+        .song-row.playing .song-row-title,
+        .chart-item.playing .chart-item-title {
+            color: var(--spotify-green) !important;
+        }
+        .track-row.playing .track-number,
+        .song-row.playing .track-number {
+            color: transparent !important;
+            position: relative;
+        }
+        .track-row.playing .track-number::after,
+        .song-row.playing .track-number::after {
+            content: "\f012"; /* Ícone de equalizador (fa-signal) */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--spotify-green);
+            position: absolute;
+            font-size: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
         .full-page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 24px; }
 
         .no-results { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
@@ -311,7 +365,7 @@
         .empty-state { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 16px; }
         .empty-state-small { padding: 16px; color: var(--text-secondary); font-size: 14px; text-align: center; }
 
-        /* --- NAVEGA��O MOBILE (BOTTOM NAV) APRIMORADA --- */
+        /* --- NAVEGAÇÃO MOBILE (BOTTOM NAV) APRIMORADA --- */
         .bottom-nav {
           position: fixed; bottom: 0; left: 0; right: 0; 
           background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -333,7 +387,7 @@
         .bottom-nav-item span { display: block; font-size: 10px; margin-top: 6px; font-weight: 500;}
         .bottom-nav-item i { display: block; margin: 0 auto; }
 
-        /* --- ESTILOS DO EST�DIO & A��ES --- */
+        /* --- ESTILOS DO ESTÚDIO & AÇÕES --- */
         .studio-login-wrapper { background-color: var(--background-secondary); padding: 24px; border-radius: 8px; margin-bottom: 24px; }
         .studio-login-wrapper label { display: block; font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em;}
         .studio-login-wrapper select, .studio-form-group input, .studio-form-group select {
@@ -343,7 +397,7 @@
         }
         .studio-form-group input:focus, .studio-form-group select:focus { background-color: rgba(255,255,255,0.15); outline: none; border-color: #555;}
         
-        .studio-form-group select option, .studio-login-wrapper select option {
+        .studio-form-group select option, .studio-login-wrapper select option, .wysiwyg-select option {
             background-color: var(--background-secondary);
             color: var(--text-primary);
         }
@@ -418,14 +472,15 @@
 
         .track-list-item-display { 
           display: flex; align-items: center; gap: 16px;
-          background-color: rgba(255,255,255,0.05); padding: 12px 16px; border-radius: 4px; margin-bottom: 8px;
+          background-color: transparent; padding: 8px 16px; border-radius: 4px; border-bottom: none;
+          transition: background-color 0.2s ease;
         }
         .track-list-item-display:hover { background-color: rgba(255,255,255,0.1); }
         .track-list-item-display .drag-handle { cursor: grab; color: var(--text-secondary); }
-        .track-list-item-display .track-number-display { font-weight: 500; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+        .track-list-item-display .track-number-display { display: flex; justify-content: center; align-items: center; width: 32px; font-size: 16px; color: var(--text-secondary); font-variant-numeric: tabular-nums; flex-shrink: 0; }
         .track-list-item-display .track-info-display { flex-grow: 1; min-width: 0; }
-        .track-list-item-display .track-title-display { font-size: 16px; font-weight: 500; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .track-list-item-display .track-details-display { font-size: 13px; color: var(--text-secondary); margin-top: 4px; display: flex; gap: 10px; }
+        .track-list-item-display .track-title-display { font-weight: 500; font-size: 16px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; margin-bottom: 4px; }
+        .track-list-item-display .track-details-display { font-size: 14px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; gap: 10px; align-items: center; }
         .track-list-item-display .track-actions { display: flex; gap: 12px; }
         .track-list-item-display .edit-track-btn, .track-list-item-display .remove-track-btn { background: none; border: none; font-size: 16px; cursor: pointer; color: var(--text-secondary); transition: color 0.2s; padding: 0;}
         .track-list-item-display .edit-track-btn:hover { color: #fff; }
@@ -449,7 +504,54 @@
         }
         .modal-actions .cancel-btn:hover { border-color: #fff; transform: scale(1.04);}
 
-        /* --- PLAYER DE M�SICA (OVERLAY MELHORADO) --- */
+        /* --- MINI PLAYER (NOVO) --- */
+        #miniPlayer {
+            position: fixed;
+            bottom: calc(70px + env(safe-area-inset-bottom));
+            left: 8px;
+            right: 8px;
+            background: var(--background-tertiary);
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            z-index: 199;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #miniPlayer.hidden {
+            display: none !important;
+        }
+        .mini-player-info {
+            display: flex; align-items: center; gap: 12px; flex-grow: 1; min-width: 0;
+        }
+        .mini-player-cover {
+            width: 40px; height: 40px; border-radius: 4px; object-fit: cover;
+        }
+        .mini-player-text {
+            min-width: 0; flex-grow: 1;
+        }
+        .mini-player-title {
+            display: block; font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px;
+        }
+        .mini-player-artist {
+            display: block; font-size: 12px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .mini-player-controls {
+            display: flex; align-items: center; gap: 16px; padding: 0 8px;
+        }
+        .mini-player-btn {
+            background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 4px;
+        }
+        .mini-player-progress-bg {
+            position: absolute; bottom: 0; left: 8px; right: 8px; height: 2px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+        }
+        .mini-player-progress-fill {
+            height: 100%; width: 0%; background: var(--text-primary); transition: width 0.1s linear;
+        }
+
+        /* --- PLAYER DE MÚSICA (OVERLAY FULL SCREEN) --- */
         #musicPlayer {
           position: fixed; top: 0; left: 0; width: 100%; height: 100%;
           background: linear-gradient(180deg, #333333 0%, var(--background-primary) 60%);
@@ -534,13 +636,19 @@
           #musicPlayer {
             background: linear-gradient(180deg, #282828 0%, var(--background-primary) 60%);
           }
+          
+          #miniPlayer {
+            left: 270px;
+            right: 16px;
+            bottom: 16px;
+          }
         }
     </style>
 </head>
 <body>
     <nav class="bottom-nav">
         <button class="bottom-nav-item active" data-tab="homeSection">
-            <i class="fas fa-home"></i><span>In�cio</span>
+            <i class="fas fa-home"></i><span>Início</span>
         </button>
         <button class="bottom-nav-item" data-tab="searchSection">
             <i class="fas fa-search"></i><span>Buscar</span>
@@ -552,19 +660,36 @@
             <i class="fas fa-users"></i><span>Artistas</span>
         </button>
         <button class="bottom-nav-item" data-tab="actionsSection">
-            <i class="fas fa-bolt"></i><span>A��es</span>
+            <i class="fas fa-bolt"></i><span>Ações</span>
         </button>
         <button class="bottom-nav-item" data-tab="studioSection">
-            <i class="fas fa-microphone-alt"></i><span>Est�dio</span>
+            <i class="fas fa-microphone-alt"></i><span>Estúdio</span>
         </button>
     </nav>
+    
+    <!-- MINI PLAYER -->
+    <div id="miniPlayer" class="hidden">
+        <div class="mini-player-info">
+            <img id="miniPlayerCover" src="https://i.imgur.com/AD3MbBi.png" class="mini-player-cover" />
+            <div class="mini-player-text">
+                <span id="miniPlayerTitle" class="mini-player-title">Nome da Música</span>
+                <span id="miniPlayerArtist" class="mini-player-artist">Artista</span>
+            </div>
+        </div>
+        <div class="mini-player-controls">
+            <button id="miniPlayerPlayPauseBtn" class="mini-player-btn"><i class="fas fa-play"></i></button>
+        </div>
+        <div class="mini-player-progress-bg">
+            <div id="miniPlayerProgress" class="mini-player-progress-fill"></div>
+        </div>
+    </div>
 
     <div id="mainView" class="page-view">
         <header class="topbar">
             <div style="display: flex; gap: 8px; width: 100%;">
                 <div class="search-bar" style="flex-grow: 1; max-width: 400px;">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="O que voc� quer ouvir?">
+                    <input type="text" id="searchInput" placeholder="O que você quer ouvir?" />
                 </div>
                 <button data-action="refresh" class="small-btn" style="margin-left: auto; background: rgba(0,0,0,0.5); border: none;">
                     <i class="fas fa-sync-alt"></i>
@@ -575,7 +700,7 @@
                 <button class="nav-tab active" data-tab="homeSection">Tudo</button>
                 <button class="nav-tab" data-tab="chartsSection">Charts</button>
                 <button class="nav-tab" data-tab="artistsSection">Artistas</button>
-                <button class="nav-tab" data-tab="actionsSection">A��es (Batalha)</button>
+                <button class="nav-tab" data-tab="actionsSection">Ações (Batalha)</button>
             </nav>
         </header>
 
@@ -592,13 +717,13 @@
                 <h2 class="section-title">Charts Globais</h2>
 
                 <div class="chart-header">
-                    <h3>Top 50 M�sicas</h3>
+                    <h3>Top 50 Músicas</h3>
                     <p>Atualiza em: <span id="musicChartTimer">--</span></p>
                 </div>
                 <div id="musicChartsList" class="chart-list"></div>
 
                 <div class="chart-header" style="margin-top: 40px;">
-                    <h3>Top 50 �lbuns</h3>
+                    <h3>Top 50 Álbuns</h3>
                     <p>Atualiza em: <span id="albumChartTimer">--</span></p>
                 </div>
                 <div id="albumChartsList" class="chart-list"></div>
@@ -606,7 +731,7 @@
 
             <section id="artistsSection" class="content-section">
                  <div class="chart-header">
-                    <h2 class="section-title">Classifica��o RPG</h2>
+                    <h2 class="section-title">Classificação RPG</h2>
                      <p>Atualiza em: <span id="rpgChartTimer">--</span></p>
                  </div>
                 <div id="artistsGrid" class="artists-grid full-page-grid"></div>
@@ -617,52 +742,52 @@
                 <div id="noResults" class="no-results hidden">
                     <i class="fas fa-search"></i>
                     <h3>Nenhum resultado</h3>
-                    <p>Tente buscar por outro artista ou �lbum.</p>
+                    <p>Tente buscar por outro artista ou álbum.</p>
                 </div>
             </section>
 
             <section id="actionsSection" class="content-section">
                 <div class="section-header">
-                    <h3 class="section-title">&#9889; Batalha de Charts - A��es</h3>
+                    <h3 class="section-title">⚡ Batalha de Charts - Ações</h3>
                 </div>
                 
                 <div id="actionsLoginPrompt" class="empty-state">
                     <i class="fas fa-lock" style="font-size: 40px; margin-bottom: 16px; color: var(--text-secondary);"></i>
-                    <p>Para interagir na batalha de charts, fa�a login primeiro na aba <strong>Est�dio</strong>.</p>
+                    <p>Para interagir na batalha de charts, faça login primeiro na aba <strong>Estúdio</strong>.</p>
                 </div>
 
                 <div id="actionsWrapper" class="hidden">
-                    <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Selecione um de seus artistas para promover m�sicas ou melhorar a imagem p�blica.</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Selecione um de seus artistas para promover músicas ou melhorar a imagem pública.</p>
                     <div id="artistActionsList" style="display: flex; flex-direction: column; gap: 12px;"></div>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- MODAL DE A��O DA BATALHA DE CHARTS -->
+    <!-- MODAL DE AÇÃO DA BATALHA DE CHARTS -->
     <div id="actionModal" class="modal-overlay hidden">
         <div class="modal-content action-modal-content">
-            <h3 id="modalArtistName" style="text-align: center;">Selecionar A��o</h3>
+            <h3 id="modalArtistName" style="text-align: center;">Selecionar Ação</h3>
             <input type="hidden" id="modalArtistId">
 
             <div class="studio-form-group">
-                <label for="actionTypeSelect">Tipo de A��o</label>
-                <select id="actionTypeSelect" required="">
-                    <option value="" disabled="" selected="">Escolha uma a��o...</option>
-                    <optgroup label="Divulga��o da M�sica (Ganha Streams)">
+                <label for="actionTypeSelect">Tipo de Ação</label>
+                <select id="actionTypeSelect" required>
+                    <option value="" disabled selected>Escolha uma ação...</option>
+                    <optgroup label="Divulgação da Música (Ganha Streams)">
                         <option value="promo_tv">Divulgar na TV</option>
-                        <option value="promo_radio">Divulgar na R�dio</option>
-                        <option value="promo_commercial">Comercial da M�sica</option>
-                        <option value="promo_internet">Divulga��o na Internet</option> 
+                        <option value="promo_radio">Divulgar na Rádio</option>
+                        <option value="promo_commercial">Comercial da Música</option>
+                        <option value="promo_internet">Divulgação na Internet</option> 
                     </optgroup>
-                    <optgroup label="Divulga��es Especiais (Ganha Streams)">
-                        <option value="mv">Lan�ar MV</option>
-                        <option value="capas_alternativas">Lan�ar capas alternativas</option>
-                        <option value="remix">Lan�ar remix</option>
-                        <option value="parceria_marcas">Lan�ar parceria com marcas famosas</option>
+                    <optgroup label="Divulgações Especiais (Ganha Streams)">
+                        <option value="mv">Lançar MV</option>
+                        <option value="capas_alternativas">Lançar capas alternativas</option>
+                        <option value="remix">Lançar remix</option>
+                        <option value="parceria_marcas">Lançar parceria com marcas famosas</option>
                     </optgroup>
-                    <optgroup label="Divulga��o da Imagem (Aumenta Status/Bonus de Streams)">
-                        <option value="img_serie">Participar de S�rie</option>
+                    <optgroup label="Divulgação da Imagem (Aumenta Status/Bonus de Streams)">
+                        <option value="img_serie">Participar de Série</option>
                         <option value="img_novela">Participar de Novela</option>
                         <option value="img_filme">Participar de Filme</option>
                         <option value="img_programa_tv">Participar de Programa de TV</option>
@@ -673,9 +798,9 @@
             </div>
 
             <div class="studio-form-group" id="releaseSelectWrapper">
-                <label for="releaseSelect">Selecionar Lan�amento (�lbum/Single/EP)</label>
-                <select id="releaseSelect" required="">
-                    <option value="">Carregando lan�amentos...</option>
+                <label for="releaseSelect">Selecionar Lançamento (Álbum/Single/EP)</label>
+                <select id="releaseSelect" required>
+                    <option value="">Carregando lançamentos...</option>
                 </select>
             </div>
 
@@ -690,7 +815,7 @@
 
             <div class="modal-actions">
                 <button type="button" class="cancel-btn" id="cancelActionButton">Cancelar</button>
-                <button type="button" class="submit-btn" id="confirmActionButton">Confirmar A��o</button>
+                <button type="button" class="submit-btn" id="confirmActionButton">Confirmar Ação</button>
             </div>
         </div>
     </div>
@@ -715,7 +840,7 @@
             <div id="popularSongsList" class="popular-songs-list"></div>
 
             <div class="section-header" style="margin-top: 40px;">
-                <h3 class="section-title">Lan�amentos</h3>
+                <h3 class="section-title">Lançamentos</h3>
                 <span class="see-all-btn discography-link" data-discog-type="albums">Mostrar Tudo</span>
             </div>
             <div id="albumsList" class="horizontal-scroll-list"></div>
@@ -726,7 +851,7 @@
             </div>
             <div id="singlesList" class="horizontal-scroll-list"></div>
 
-            <h3 class="section-title" style="margin-top: 40px;">F�s tamb�m curtem</h3>
+            <h3 class="section-title" style="margin-top: 40px;">Fãs também curtem</h3>
             <div id="recommendedGrid" class="artists-grid"></div>
         </div>
     </div>
@@ -737,16 +862,16 @@
             <div id="albumDetailBg" class="header-bg"></div>
             <div class="header-overlay"></div>
             <div class="album-header-content">
-                <img id="albumDetailCover" src="./Spotify RPG - Charts &amp; Artists_files/AD3MbBi.png" alt="Capa do �lbum">
+                <img id="albumDetailCover" src="https://i.imgur.com/AD3MbBi.png" alt="Capa do Álbum" />
                 <div class="album-text-info">
-                    <p class="album-type-label">�lbum</p>
-                    <h1 id="albumDetailTitle">Nome do �lbum</h1>
+                    <p class="album-type-label">Álbum</p>
+                    <h1 id="albumDetailTitle">Nome do Álbum</h1>
                     <div id="albumNormalInfoContainer">
-                        <p id="albumDetailInfo">Por Artista � 2025</p>
+                        <p id="albumDetailInfo">Por Artista • 2025</p>
                     </div>
                     <div id="albumCountdownContainer" class="hidden">
                         <div id="albumCountdownTimer" style="display:flex; gap:16px; margin-top:16px;"></div>
-                        <p class="release-date-text" style="margin-top:8px;">Lan�amento em <span id="albumCountdownReleaseDate"></span></p>
+                        <p class="release-date-text" style="margin-top:8px;">Lançamento em <span id="albumCountdownReleaseDate"></span></p>
                     </div>
                 </div>
             </div>
@@ -770,34 +895,34 @@
     <div id="studioView" class="page-view hidden">
         <main class="main-container">
             <section id="studioSection" class="content-section active">
-                <h2 class="section-title">Est�dio</h2>
+                <h2 class="section-title">Estúdio</h2>
 
                 <!-- Auth Wrapper Atualizado com Toggle Login/Registro -->
                 <div class="studio-login-wrapper" id="authWrapper">
                     <div id="loginPrompt">
                         <div class="studio-form-group">
-                            <label for="usernameInput">Nome de Usu�rio</label>
-                            <input type="text" id="usernameInput" placeholder="Seu nome de jogador" required="">
+                            <label for="usernameInput">Nome de Usuário</label>
+                            <input type="text" id="usernameInput" placeholder="Seu nome de jogador" required />
                         </div>
                         <div class="studio-form-group">
                             <label for="passwordInput">Senha</label>
-                            <input type="password" id="passwordInput" placeholder="Sua senha" required="">
+                            <input type="password" id="passwordInput" placeholder="Sua senha" required />
                         </div>
                         <button class="submit-btn" id="loginButton" style="width:100%;">Entrar</button>
-                        <p style="text-align:center; margin-top: 16px; font-size: 13px;">N�o tem conta? <a href="https://www.lncc.br/~borges/php/testar.html#" id="showRegisterBtn" style="color: var(--spotify-green);">Cadastre-se</a></p>
+                        <p style="text-align:center; margin-top: 16px; font-size: 13px;">Não tem conta? <a href="#" id="showRegisterBtn" style="color: var(--spotify-green);">Cadastre-se</a></p>
                     </div>
                     
                     <div id="registerPrompt" class="hidden">
                         <div class="studio-form-group">
                             <label>Escolha seu Nome</label>
-                            <input type="text" id="regUsernameInput" placeholder="Nome de jogador �nico" required="">
+                            <input type="text" id="regUsernameInput" placeholder="Nome de jogador único" required />
                         </div>
                         <div class="studio-form-group">
                             <label>Crie uma Senha</label>
-                            <input type="password" id="regPasswordInput" placeholder="Sua senha segura" required="">
+                            <input type="password" id="regPasswordInput" placeholder="Sua senha segura" required />
                         </div>
                         <button class="submit-btn" id="registerButton" style="width:100%;">Criar Conta</button>
-                        <p style="text-align:center; margin-top: 16px; font-size: 13px;">J� tem conta? <a href="https://www.lncc.br/~borges/php/testar.html#" id="showLoginBtn" style="color: var(--spotify-green);">Fazer Login</a></p>
+                        <p style="text-align:center; margin-top: 16px; font-size: 13px;">Já tem conta? <a href="#" id="showLoginBtn" style="color: var(--spotify-green);">Fazer Login</a></p>
                     </div>
                 </div>
 
@@ -808,156 +933,161 @@
 
                 <div id="studioLaunchWrapper" class="hidden">
                     <nav class="studio-tabs">
-                        <button class="studio-tab-btn active" data-form="single">Single</button>
-                        <button class="studio-tab-btn" data-form="album">�lbum / EP</button>
+                        <button class="studio-tab-btn active" data-form="release">Novo Lançamento</button>
                         <button class="studio-tab-btn" data-form="edit">Editar</button>
                         <button class="studio-tab-btn" data-form="artist">Novo Artista</button>
                     </nav>
 
-                    <form id="newSingleForm" class="studio-form studio-form-content active">
-                        <h3>Lan�ar Single</h3>
-                        <div class="studio-form-group">
-                            <label for="singleArtistSelect">Artista Principal</label>
-                            <select id="singleArtistSelect" required=""><option value="">Selecione...</option></select>
-                        </div>
-                        <div class="studio-form-group">
-                            <label for="singleTitle">Nome do Single</label>
-                            <input type="text" id="singleTitle" required="">
-                        </div>
-                        <div class="studio-form-group">
-                            <label for="singleCoverUrl">Capa do Single</label>
-                            <input type="file" id="singleCoverFile" accept="image/*" class="file-upload-input" style="margin-bottom: 8px; width: 100%;">
-                            <input type="url" id="singleCoverUrl" placeholder="Ou cole a URL da imagem aqui" required="">
-                        </div>
-                        <div class="studio-form-group">
-                            <label for="singleReleaseDate">Data e Hora de Lan�amento</label>
-                            <input type="datetime-local" id="singleReleaseDate" required="">
-                        </div>
+                    <!-- WYSIWYG Editor para Lançamentos -->
+                    <form id="wysiwygReleaseForm" class="studio-form-content active" style="padding: 0; background: transparent;">
+                        <div class="album-header" style="padding: 40px 24px 24px; border-radius: 8px 8px 0 0;">
+                            <div id="wysiwygBg" class="header-bg" style="background-image: url('https://i.imgur.com/AD3MbBi.png'); filter: blur(30px) brightness(0.4); transform: scale(1.2);"></div>
+                            <div class="header-overlay" style="background: linear-gradient(to top, var(--background-secondary) 0%, rgba(0,0,0,0.4) 100%);"></div>
+                            
+                            <div class="album-header-content" style="width: 100%; flex-wrap: wrap;">
+                                <!-- Cover Upload -->
+                                <div style="position: relative; width: 200px; height: 200px; flex-shrink: 0; cursor: pointer; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);" onclick="document.getElementById('wysiwygCoverFile').click()">
+                                    <img id="wysiwygCoverImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+                                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; border-radius: 4px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                                        <i class="fas fa-camera" style="font-size: 32px; margin-bottom: 8px;"></i>
+                                        <span style="font-size: 12px; font-weight: 600;">Alterar Capa</span>
+                                    </div>
+                                </div>
+                                <input type="file" id="wysiwygCoverFile" accept="image/*" hidden />
+                                <input type="hidden" id="wysiwygCoverUrl" value="https://i.imgur.com/AD3MbBi.png" />
 
-                        <div class="toggle-existing" style="margin-top: 24px;">
-                            <label class="checkbox-label" style="color:var(--text-primary); cursor:pointer;">
-                                <input type="checkbox" id="toggleExistingSingle"> Promover faixa j� existente
-                            </label>
-                        </div>
+                                <!-- Info Editable -->
+                                <div class="album-text-info" style="flex-grow: 1; min-width: 250px;">
+                                    <select id="wysiwygReleaseType" class="wysiwyg-select" style="font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; border: 1px dashed rgba(255,255,255,0.3); padding: 4px; width: fit-content;">
+                                        <option value="single">SINGLE / EP</option>
+                                        <option value="album">ÁLBUM</option>
+                                    </select>
+                                    
+                                    <input type="text" id="wysiwygTitle" class="wysiwyg-input" placeholder="Nome do Lançamento" required style="font-size: clamp(32px, 6vw + 1rem, 64px); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.3); border-bottom: 1px dashed rgba(255,255,255,0.3);" />
+                                    
+                                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                        <img id="wysiwygArtistImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" />
+                                        <select id="wysiwygArtistSelect" class="wysiwyg-select" required style="border-bottom: 1px dashed rgba(255,255,255,0.3);">
+                                            <!-- Options populated dynamically -->
+                                        </select>
+                                        <span style="color: rgba(255,255,255,0.8);">•</span>
+                                        <input type="datetime-local" id="wysiwygReleaseDate" class="wysiwyg-input" required style="width: auto; color: rgba(255,255,255,0.8); font-weight: 500; font-size: 14px; border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 4px;" />
+                                    </div>
 
-                        <div id="newTrackInfoGroup">
-                            <hr class="form-divider">
-                            <h4>Dados da Nova Faixa</h4>
-                            <div class="studio-form-group"><label>Nome da Faixa</label><input type="text" id="trackName" required=""></div>
-                            <div class="studio-form-group"><label>Dura��o (MM:SS)</label><input type="text" id="trackDuration" pattern="\d{1,2}:\d{2}" required=""></div>
-                        </div>
-
-                        <div id="existingTrackGroup" class="hidden">
-                            <hr class="form-divider">
-                            <div class="studio-form-group">
-                                <label>Selecionar Faixa Existente</label>
-                                <select id="existingTrackSelect" required=""><option value="">Carregando...</option></select>
-                            </div>
-                            <input type="hidden" id="existingSingleTrackId">
-                        </div>
-
-                        <div class="feat-section" id="singleFeatSection" style="margin-top:24px;">
-                            <label>Participa��es (Feat.)</label>
-                            <div class="feat-list" id="singleFeatList" style="display:flex;gap:8px;margin-bottom:8px;"></div>
-                            <button type="button" class="small-btn add-feat-btn" data-target="singleFeatList">+ Adicionar Feat</button>
-                        </div>
-
-                        <button type="submit" class="submit-btn" id="submitNewSingle" style="width:100%;">Lan�ar Single</button>
-                    </form>
-
-                    <form id="newAlbumForm" class="studio-form studio-form-content">
-                        <h3>Lan�ar �lbum / EP</h3>
-                        <div class="studio-form-group">
-                            <label>Artista Principal</label>
-                            <select id="albumArtistSelect" required=""><option value="">Selecione...</option></select>
-                        </div>
-                        <div class="studio-form-group">
-                            <label>Nome do Projeto</label>
-                            <input type="text" id="albumTitle" required="">
-                        </div>
-                        <div class="toggle-existing" style="margin-bottom: 16px;">
-                            <label class="checkbox-label" style="color:var(--text-primary); cursor:pointer;">
-                                <input type="checkbox" id="toggleDeluxe"> Vers�o Deluxe (Importar base)
-                            </label>
-                        </div>
-                        <div class="studio-form-group">
-                            <label>Capa do Projeto</label>
-                            <input type="file" id="albumCoverFile" accept="image/*" class="file-upload-input" style="margin-bottom: 8px; width: 100%;">
-                            <input type="url" id="albumCoverUrl" placeholder="Ou cole a URL da imagem aqui" required="">
-                        </div>
-                        <div class="studio-form-group">
-                            <label>Data de Lan�amento</label>
-                             <input type="datetime-local" id="albumReleaseDate" required="">
-                        </div>
-
-                        <hr class="form-divider">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                            <h4>Tracklist</h4>
-                            <div style="display:flex; gap:8px;">
-                                <button type="button" class="small-btn" id="openExistingTrackModalBtn">+ Existente</button>
-                                <button type="button" class="small-btn" id="openAddTrackModalBtn" style="border-color:var(--spotify-green); color:var(--spotify-green);">+ Nova</button>
+                                    <div style="margin-top: 16px; display: flex; align-items: center; gap: 16px;">
+                                        <label style="font-size: 13px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                                            <input type="checkbox" id="wysiwygToggleDeluxe"> É versão Deluxe?
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div id="albumTracklistEditor" class="track-list-editor"></div>
 
-                        <button type="submit" class="submit-btn" id="submitNewAlbum" style="width:100%; margin-top:24px;">Lan�ar Projeto</button>
+                        <!-- Tracklist Body -->
+                        <div class="page-detail-body" style="background: var(--background-secondary); border-radius: 0 0 8px 8px; padding: 24px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                                <button type="submit" class="submit-btn" id="submitWysiwygRelease" style="margin: 0;"><i class="fas fa-check"></i> Lançar Projeto</button>
+                                
+                                <div style="display: flex; gap: 8px;">
+                                    <button type="button" class="small-btn" id="openWysiwygExistingTrackBtn">+ Existente</button>
+                                    <button type="button" class="small-btn" id="openWysiwygAddTrackBtn" style="border-color:var(--spotify-green); color:var(--spotify-green);">+ Nova Faixa</button>
+                                </div>
+                            </div>
+                            
+                            <div class="track-header" style="display: flex; color: var(--text-secondary); font-size: 12px; font-weight: 400; padding: 0 16px 8px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px;">
+                                <div style="width: 24px; text-align: center; margin-right: 24px;">#</div>
+                                <div style="flex-grow: 1;">TÍTULO</div>
+                                <div style="margin-right: 56px;"><i class="far fa-clock"></i></div>
+                            </div>
+
+                            <div id="wysiwygTracklistEditor" class="tracklist-container" style="min-height: 100px; margin-top: 0;">
+                                <p style="color: var(--text-subdued); text-align: center; font-size: 14px; margin-top: 24px;">Nenhuma faixa adicionada.</p>
+                            </div>
+                        </div>
                     </form>
 
                     <div id="editReleaseSection" class="studio-form-content">
-                        <h3>Gerenciar Lan�amentos</h3>
+                        <h3>Gerenciar Lançamentos</h3>
                         <div class="studio-form-group">
                             <label>Filtrar por Artista</label>
-                            <select id="editArtistFilterSelect"></select>
+                            <select id="editArtistFilterSelect" class="wysiwyg-select" style="background: rgba(255,255,255,0.1); padding: 14px; width: 100%; border-radius: 4px;"></select>
                         </div>
                         <div id="editReleaseListContainer">
-                            <div id="editReleaseList" class="release-edit-list"></div>
+                            <div id="editReleaseList" class="release-edit-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
                         </div>
 
-                        <form id="editReleaseForm" class="studio-form hidden">
-                            <input type="hidden" id="editReleaseId">
-                            <input type="hidden" id="editReleaseType">
-                            <input type="hidden" id="editReleaseTableName">
-                            <p style="color:var(--text-secondary); margin-bottom:24px;">Artista: <strong id="editArtistNameDisplay" style="color:#fff;"></strong></p>
+                        <!-- EDIT WYSIWYG -->
+                        <form id="editReleaseForm" class="studio-form hidden" style="padding: 0; background: transparent; margin-top: 24px;">
+                            <input type="hidden" id="editReleaseId" />
+                            <input type="hidden" id="editReleaseType" />
+                            <input type="hidden" id="editReleaseTableName" />
+                            
+                            <div class="album-header" style="padding: 40px 24px 24px; border-radius: 8px 8px 0 0;">
+                                <div id="editWysiwygBg" class="header-bg" style="background-image: url('https://i.imgur.com/AD3MbBi.png'); filter: blur(30px) brightness(0.4); transform: scale(1.2);"></div>
+                                <div class="header-overlay" style="background: linear-gradient(to top, var(--background-secondary) 0%, rgba(0,0,0,0.4) 100%);"></div>
+                                
+                                <div class="album-header-content" style="width: 100%; flex-wrap: wrap;">
+                                    <div style="position: relative; width: 200px; height: 200px; flex-shrink: 0; cursor: pointer; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);" onclick="document.getElementById('editReleaseCoverFile').click()">
+                                        <img id="editWysiwygCoverImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+                                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; border-radius: 4px;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                                            <i class="fas fa-camera" style="font-size: 32px; margin-bottom: 8px;"></i>
+                                            <span style="font-size: 12px; font-weight: 600;">Alterar Capa</span>
+                                        </div>
+                                    </div>
+                                    <input type="file" id="editReleaseCoverFile" accept="image/*" hidden />
+                                    <input type="hidden" id="editReleaseCoverUrl" value="https://i.imgur.com/AD3MbBi.png" />
 
-                            <div class="studio-form-group"><label>T�tulo</label><input type="text" id="editReleaseTitle" required=""></div>
-                            <div class="studio-form-group">
-                                <label>Capa do Lan�amento</label>
-                                <input type="file" id="editReleaseCoverFile" accept="image/*" class="file-upload-input" style="margin-bottom: 8px; width: 100%;">
-                                <input type="url" id="editReleaseCoverUrl" placeholder="Ou cole a URL da imagem aqui" required="">
-                            </div>
-                            <div class="studio-form-group"><label>Data</label><input type="datetime-local" id="editReleaseDate" required=""></div>
-
-                            <hr class="form-divider">
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-                                <h4>Tracklist</h4>
-                                <div id="editTracklistActions" style="display:flex; gap:8px;">
-                                    <button type="button" class="small-btn" id="openEditExistingTrackModalBtn">+ Existente</button>
-                                    <button type="button" class="small-btn" id="openEditAddTrackModalBtn" style="border-color:var(--spotify-green); color:var(--spotify-green);">+ Nova</button>
+                                    <div class="album-text-info" style="flex-grow: 1; min-width: 250px;">
+                                        <p class="album-type-label">Editando Lançamento</p>
+                                        
+                                        <input type="text" id="editReleaseTitle" class="wysiwyg-input" required style="font-size: clamp(32px, 6vw + 1rem, 64px); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.3); border-bottom: 1px dashed rgba(255,255,255,0.3);" />
+                                        
+                                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                            <img id="editWysiwygArtistImg" src="https://i.imgur.com/AD3MbBi.png" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;" />
+                                            <strong id="editArtistNameDisplay" style="color: white;">Artista</strong>
+                                            <span style="color: rgba(255,255,255,0.8);">•</span>
+                                            <input type="datetime-local" id="editReleaseDate" class="wysiwyg-input" required style="width: auto; color: rgba(255,255,255,0.8); font-weight: 500; font-size: 14px; border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 4px;" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="editAlbumTracklistEditor" class="track-list-editor"></div>
-                            
-                            <div style="display:flex; gap:16px; margin-top:32px;">
-                                <button type="button" class="small-btn" id="cancelEditBtn" style="flex:1; justify-content:center;">Cancelar</button>
-                                <button type="submit" class="submit-btn" id="saveEditBtn" style="flex:1; margin:0;">Salvar</button>
+
+                            <div class="page-detail-body" style="background: var(--background-secondary); border-radius: 0 0 8px 8px; padding: 24px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                                    <div style="display: flex; gap: 16px;">
+                                        <button type="submit" class="submit-btn" id="saveEditBtn" style="margin: 0;"><i class="fas fa-save"></i> Salvar</button>
+                                        <button type="button" class="cancel-btn small-btn" id="cancelEditBtn" style="border: none; background: transparent;">Cancelar</button>
+                                    </div>
+                                    <div id="editTracklistActions" style="display: flex; gap: 8px;">
+                                        <button type="button" class="small-btn" id="openEditExistingTrackModalBtn">+ Existente</button>
+                                        <button type="button" class="small-btn" id="openEditAddTrackModalBtn" style="border-color:var(--spotify-green); color:var(--spotify-green);">+ Nova</button>
+                                    </div>
+                                </div>
+
+                                <div class="track-header" style="display: flex; color: var(--text-secondary); font-size: 12px; font-weight: 400; padding: 0 16px 8px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px;">
+                                    <div style="width: 24px; text-align: center; margin-right: 24px;">#</div>
+                                    <div style="flex-grow: 1;">TÍTULO</div>
+                                    <div style="margin-right: 56px;"><i class="far fa-clock"></i></div>
+                                </div>
+
+                                <div id="editAlbumTracklistEditor" class="tracklist-container" style="min-height: 100px; margin-top: 0;"></div>
                             </div>
                         </form>
                     </div>
 
-                    <!-- Novo Formul�rio de Cria��o de Artista Pessoal -->
+                    <!-- Formulário de Criação de Artista Pessoal -->
                     <form id="newArtistForm" class="studio-form studio-form-content">
                         <h3>Cadastrar Novo Artista</h3>
-                        <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Este artista ficar� vinculado � sua conta permanentemente e todos os streams que ele receber no Studio contar�o para seus Charts.</p>
+                        <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Este artista ficará vinculado à sua conta permanentemente e todos os streams que ele receber no Studio contarão para seus Charts.</p>
                         
                         <div class="studio-form-group">
                             <label>Nome do Artista</label>
-                            <input type="text" id="newArtistName" placeholder="Ex: Olivia Rodrigo" required="">
+                            <input type="text" id="newArtistName" placeholder="Ex: Olivia Rodrigo" required />
                         </div>
                         <div class="studio-form-group">
                             <label>Imagem (Capa/Foto de Perfil)</label>
-                            <input type="file" id="newArtistImageFile" accept="image/*" class="file-upload-input" style="margin-bottom: 8px; width: 100%;">
-                            <input type="url" id="newArtistImageUrl" placeholder="Ou cole a URL da imagem aqui" required="">
+                            <input type="file" id="newArtistImageFile" accept="image/*" class="file-upload-input" style="margin-bottom: 8px; width: 100%;" />
+                            <input type="url" id="newArtistImageUrl" placeholder="Ou cole a URL da imagem aqui" required />
                         </div>
                         <button type="submit" class="submit-btn" id="submitNewArtist" style="width:100%;">Criar Artista</button>
                     </form>
@@ -967,12 +1097,12 @@
         </main>
     </div>
 
-    <!-- MODAIS DO EST�DIO -->
+    <!-- MODAIS DO ESTÚDIO -->
     <div id="deleteConfirmModal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h3 style="color: var(--trend-down-red);">Confirmar Exclus�o</h3>
+            <h3 style="color: var(--trend-down-red);">Confirmar Exclusão</h3>
             <p style="color: var(--text-secondary); margin-bottom: 24px;">Tem certeza que deseja apagar "<strong id="deleteReleaseName" style="color: #fff;"></strong>"?</p>
-            <input type="hidden" id="deleteRecordId"><input type="hidden" id="deleteTableName"><input type="hidden" id="deleteTrackIds">
+            <input type="hidden" id="deleteRecordId" /><input type="hidden" id="deleteTableName" /><input type="hidden" id="deleteTrackIds" />
             <div style="display:flex; gap:16px;">
                 <button class="small-btn" id="cancelDeleteBtn" style="flex:1; justify-content:center;">Cancelar</button>
                 <button class="submit-btn" id="confirmDeleteBtn" style="flex:1; background:var(--trend-down-red); color:#fff; margin:0;">Apagar</button>
@@ -992,29 +1122,12 @@
         </div>
     </div>
 
-    <div id="trackTypeModal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h3>Classifica��o</h3>
-            <div class="studio-form-group">
-                <select id="trackTypeSelect">
-                    <option value="Title Track">Title Track</option>
-                    <option value="Pre-release Single">Pre-release</option>
-                    <option value="B-side">B-side</option>
-                </select>
-            </div>
-            <div style="display:flex; gap:16px; margin-top:24px;">
-                <button class="small-btn" id="cancelTrackTypeBtn" style="flex:1; justify-content:center;">Cancelar</button>
-                <button class="submit-btn" id="confirmTrackTypeBtn" style="flex:1; margin:0;">Confirmar</button>
-            </div>
-        </div>
-    </div>
-
     <div id="albumTrackModal" class="modal-overlay hidden">
         <div class="modal-content">
             <h3 id="albumTrackModalTitle">Adicionar Faixa</h3>
-            <input type="hidden" id="editingTrackItemId"><input type="hidden" id="editingTrackExistingId">
-            <div class="studio-form-group"><label>Nome</label><input type="text" id="albumTrackNameInput"></div>
-            <div class="studio-form-group"><label>Dura��o</label><input type="text" id="albumTrackDurationInput" placeholder="0:00"></div>
+            <input type="hidden" id="editingTrackItemId" /><input type="hidden" id="editingTrackExistingId" />
+            <div class="studio-form-group"><label>Nome</label><input type="text" id="albumTrackNameInput" /></div>
+            <div class="studio-form-group"><label>Duração</label><input type="text" id="albumTrackDurationInput" placeholder="0:00" /></div>
             <div class="studio-form-group">
                 <label>Tipo</label>
                 <select id="albumTrackTypeSelect">
@@ -1023,7 +1136,7 @@
             </div>
             <div class="feat-section">
                 <label>Feats</label>
-                <div id="albumTrackFeatList" style="display:flex; gap:8px; margin-bottom:8px;"></div>
+                <div id="albumTrackFeatList" style="display:flex; gap:8px; margin-bottom:8px; flex-wrap: wrap;"></div>
                 <button type="button" class="small-btn add-inline-feat-btn">+ Feat</button>
                 <div id="inlineFeatAdder" class="hidden" style="margin-top:16px; background:rgba(255,255,255,0.05); padding:16px; border-radius:4px;">
                     <div class="studio-form-group"><label>Artista</label><select id="inlineFeatArtistSelect"></select></div>
@@ -1045,7 +1158,7 @@
         <div class="modal-content">
             <h3>Buscar Existente</h3>
             <div class="studio-form-group">
-                <input type="text" id="existingTrackSearch" placeholder="Digite o nome...">
+                <input type="text" id="existingTrackSearch" placeholder="Digite o nome..." />
             </div>
             <div id="existingTrackResults" style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto; margin-top:16px;"></div>
             <button class="small-btn" id="cancelExistingTrackBtn" style="width:100%; justify-content:center; margin-top:24px;">Fechar</button>
@@ -1065,25 +1178,25 @@
         </div>
     </div>
 
-    <!-- PLAYER DE M�SICA (OVERLAY ORIGINAL MELHORADO) -->
+    <!-- PLAYER DE MÚSICA (OVERLAY ORIGINAL MELHORADO) -->
     <div id="musicPlayer" class="page-view hidden">
         <div class="player-header">
             <button class="player-close-btn"><i class="fas fa-chevron-down"></i></button>
-            <span id="playerAlbumTitle">Nome do �lbum</span>
+            <span id="playerAlbumTitle">Nome do Álbum</span>
             <button><i class="fas fa-ellipsis-v"></i></button>
         </div>
 
         <div class="player-body">
-            <img id="playerCoverArt" src="./Spotify RPG - Charts &amp; Artists_files/AD3MbBi.png">
+            <img id="playerCoverArt" src="https://i.imgur.com/AD3MbBi.png" />
             <div class="player-song-info">
                 <div class="player-song-text">
-                    <h2 id="playerSongTitle">Nome da M�sica</h2>
+                    <h2 id="playerSongTitle">Nome da Música</h2>
                     <p id="playerArtistName">Artista</p>
                 </div>
                 <button class="player-add-btn"><i class="far fa-heart"></i></button>
             </div>
             <div class="player-seeker">
-                <input type="range" id="playerSeekBar" value="0" min="0" max="100">
+                <input type="range" id="playerSeekBar" value="0" min="0" max="100" />
                 <div class="player-time">
                     <span id="playerCurrentTime">0:00</span>
                     <span id="playerTotalTime">0:00</span>
@@ -1103,13 +1216,14 @@
 
 <script>
 // ===================================================
-// CONFIGURA��O DO SUPABASE E CONSTANTES DE A��O
+// CONFIGURAÇÃO DO SUPABASE E CONSTANTES DE AÇÃO
 // ===================================================
 const SUPABASE_URL = 'https://avlgxwymwotffookkimg.supabase.co'; 
 const SUPABASE_ANON_KEY = 'sb_publishable_9uhuy6fpFduf-qsEXYf5wA_BDBB1OIZ'; 
 const IMGBB_API_KEY = '81f7ca81cf22d739de576bd1dac7dcc2';
 
 let supabaseClient;
+// Inicializa o cliente do Supabase
 if (window.supabase && SUPABASE_URL.startsWith('http')) {
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
@@ -1131,31 +1245,29 @@ async function uploadImageToImgbb(file) {
     return data.data.url;
 }
 
-function setupImageUpload(fileInputId, urlInputId) {
+function setupImageUploadWithPreview(fileInputId, urlInputId, imgElementId, bgElementId) {
     const fileInput = document.getElementById(fileInputId);
     const urlInput = document.getElementById(urlInputId);
+    const imgElement = document.getElementById(imgElementId);
+    const bgElement = document.getElementById(bgElementId);
     
     if (fileInput && urlInput) {
         fileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
             
-            const originalPlaceholder = urlInput.placeholder;
-            urlInput.value = '';
-            urlInput.placeholder = 'Fazendo upload da imagem, aguarde...';
-            urlInput.disabled = true;
-            fileInput.disabled = true;
+            if(imgElement) imgElement.style.opacity = '0.5';
             
             try {
                 const url = await uploadImageToImgbb(file);
                 urlInput.value = url;
+                if(imgElement) { imgElement.src = url; imgElement.style.opacity = '1'; }
+                if(bgElement) bgElement.style.backgroundImage = `url('${url}')`;
             } catch (error) {
                 alert('Erro ao fazer upload da imagem: ' + error.message);
+                if(imgElement) imgElement.style.opacity = '1';
             } finally {
-                urlInput.placeholder = originalPlaceholder;
-                urlInput.disabled = false;
-                fileInput.disabled = false;
-                fileInput.value = ''; // Reset file input
+                fileInput.value = ''; 
             }
         });
     }
@@ -1182,22 +1294,22 @@ const IMAGE_ACTION_CONFIG = {
 };
 
 const PUNISHMENT_CONFIG = [
-    { message: "Vish! Seu single foi cancelado por conte�do impr�prio, voc� perdeu streams.", minLoss: 35000, maxLoss: 350000 },
-    { message: "Problemas de direitos autorais! Sua faixa foi retirada das plataformas, voc� perdeu streams.", minLoss: 60000, maxLoss: 600000 },
-    { message: "O p�blico achou seu novo clipe constrangedor, voc� perdeu streams.", minLoss: 20000, maxLoss: 200000 },
-    { message: "Sua m�sica foi banida em alguns pa�ses, voc� perdeu streams.", minLoss: 50000, maxLoss: 500000 },
-    { message: "Lan�amento adiado por erro da gravadora, voc� perdeu streams.", minLoss: 15000, maxLoss: 150000 },
-    { message: "O p�blico odiou a capa do seu single, voc� perdeu streams.", minLoss: 10000, maxLoss: 80000 },
-    { message: "Clipe foi denunciado e tirado do ar por 48h, voc� perdeu streams.", minLoss: 35000, maxLoss: 350000 }
+    { message: "Vish! Seu single foi cancelado por conteúdo impróprio, você perdeu streams.", minLoss: 35000, maxLoss: 350000 },
+    { message: "Problemas de direitos autorais! Sua faixa foi retirada das plataformas, você perdeu streams.", minLoss: 60000, maxLoss: 600000 },
+    { message: "O público achou seu novo clipe constrangedor, você perdeu streams.", minLoss: 20000, maxLoss: 200000 },
+    { message: "Sua música foi banida em alguns países, você perdeu streams.", minLoss: 50000, maxLoss: 500000 },
+    { message: "Lançamento adiado por erro da gravadora, você perdeu streams.", minLoss: 15000, maxLoss: 150000 },
+    { message: "O público odiou a capa do seu single, você perdeu streams.", minLoss: 10000, maxLoss: 80000 },
+    { message: "Clipe foi denunciado e tirado do ar por 48h, você perdeu streams.", minLoss: 35000, maxLoss: 350000 }
 ];
 
 const BONUS_CONFIG = [
-    { message: "Seu single virou trilha de s�rie da Netflix, voc� ganhou streams!", minGain: 150000, maxGain: 1500000 },
-    { message: "Seu single recebeu aclama��o da cr�tica, voc� ganhou streams!", minGain: 20000, maxGain: 200000 },
-    { message: "Voc� fez uma performance viral em um festival, voc� ganhou streams!", minGain: 50000, maxGain: 500000 },
-    { message: "Parab�ns! Voc� virou trend no TikTok, voc� recebeu streams!", minGain: 80000, maxGain: 800000 },
-    { message: "Uma celebridade compartilhou sua m�sica nos stories, voc� ganhou streams!", minGain: 60000, maxGain: 600000 },
-    { message: "Seu fandom fez streaming party por 24h! Voc� ganhou streams!", minGain: 20000, maxGain: 200000 }
+    { message: "Seu single virou trilha de série da Netflix, você ganhou streams!", minGain: 150000, maxGain: 1500000 },
+    { message: "Seu single recebeu aclamação da crítica, você ganhou streams!", minGain: 20000, maxGain: 200000 },
+    { message: "Você fez uma performance viral em um festival, você ganhou streams!", minGain: 50000, maxGain: 500000 },
+    { message: "Parabéns! Você virou trend no TikTok, você recebeu streams!", minGain: 80000, maxGain: 800000 },
+    { message: "Uma celebridade compartilhou sua música nos stories, você ganhou streams!", minGain: 60000, maxGain: 600000 },
+    { message: "Seu fandom fez streaming party por 24h! Você ganhou streams!", minGain: 20000, maxGain: 200000 }
 ];
 
 function getRandomInt(min, max) {
@@ -1220,13 +1332,23 @@ function getRandomBonus() {
     return { message: config.message, value: getRandomInt(config.minGain, config.maxGain) };
 }
 
+function parseDurationToSeconds(durationStr) {
+    if (!durationStr || typeof durationStr !== 'string') return 0;
+    const parts = durationStr.split(':');
+    if (parts.length !== 2) return 0;
+    const minutes = parseInt(parts[0], 10);
+    const seconds = parseInt(parts[1], 10);
+    if (isNaN(minutes) || isNaN(seconds) || minutes < 0 || seconds < 0 || seconds > 59) return 0;
+    return (minutes * 60) + seconds;
+}
+
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    // --- VARI�VEIS GLOBAIS ---
+    // --- VARIÁVEIS GLOBAIS ---
     let db = { artists: [], albums: [], singles: [], songs: [], players: [] };
     let currentPlayer = null;
-    let albumTracklistSortable = null; 
+    let wysiwygTracklistSortable = null; 
     let activeArtist = null;
     let currentFeatTarget = null;
     let viewHistory = [];
@@ -1240,7 +1362,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let editAlbumTracklistSortable = null; 
     let activeTracklistEditor = null; 
 
-    // --- VARI�VEIS DO PLAYER ---
+    // --- VARIÁVEIS DO PLAYER ---
     let audioElement = null;
     let musicPlayerView = null;
     let playerCloseBtn = null;
@@ -1263,16 +1385,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     let isShuffle = false;
     let repeatMode = 'none';
 
+    // --- VARIÁVEIS DO MINI PLAYER ---
+    let miniPlayer = document.getElementById('miniPlayer');
+    let miniPlayerCover = document.getElementById('miniPlayerCover');
+    let miniPlayerTitle = document.getElementById('miniPlayerTitle');
+    let miniPlayerArtist = document.getElementById('miniPlayerArtist');
+    let miniPlayerPlayPauseBtn = document.getElementById('miniPlayerPlayPauseBtn');
+    let miniPlayerProgress = document.getElementById('miniPlayerProgress');
+
     // --- ELEMENTOS DO DOM ---
     let allViews, searchInput, studioView, loginPrompt, loggedInInfo, playerSelect,
         loginButton, logoutButton, studioLaunchWrapper, studioTabs, studioForms,
-        newSingleForm, singleArtistSelect, singleReleaseDateInput, singleFeatList,
-        newAlbumForm, albumArtistSelect, albumReleaseDateInput,
-        albumTracklistEditor, 
+        wysiwygReleaseForm, wysiwygArtistSelect, wysiwygTitle, wysiwygCoverFile,
+        wysiwygCoverUrl, wysiwygReleaseDate, wysiwygToggleDeluxe, wysiwygTracklistEditor,
+        wysiwygBg, wysiwygCoverImg, wysiwygArtistImg,
+        openWysiwygAddTrackBtn, openWysiwygExistingTrackBtn, submitWysiwygRelease,
+        
         featModal, featArtistSelect,
         featTypeSelect, confirmFeatBtn, cancelFeatBtn,
         trackTypeModal, trackTypeSelect, confirmTrackTypeBtn, cancelTrackTypeBtn,
-        albumTrackModal, albumTrackModalTitle, openAddTrackModalBtn, 
+        albumTrackModal, albumTrackModalTitle, 
         albumTrackNameInput, albumTrackDurationInput, albumTrackTypeSelect,
         albumTrackFeatList, saveAlbumTrackBtn, cancelAlbumTrackBtn, editingTrackItemId,
         editingTrackExistingId,
@@ -1283,8 +1415,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         editReleaseTitle, editReleaseCoverUrl, editReleaseDate, cancelEditBtn, saveEditBtn,
         deleteConfirmModal, deleteReleaseName, deleteRecordId, deleteTableName,
         deleteTrackIds, cancelDeleteBtn, confirmDeleteBtn,
-        toggleExistingSingle, newTrackInfoGroup, existingTrackGroup,
-        existingTrackSelect, existingSingleTrackId, singleFeatSection,
         openExistingTrackModalBtn, 
         existingTrackModal, existingTrackSearch,
         existingTrackResults, cancelExistingTrackBtn, editArtistFilterSelect,
@@ -1313,7 +1443,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!editorElement) return;
         editorElement.innerHTML = ''; 
         if (!tracks || tracks.length === 0) {
-            editorElement.innerHTML = '<p class="empty-state-small">Nenhuma faixa encontrada.</p>';
+            editorElement.innerHTML = '<p class="empty-state-small">Nenhuma faixa adicionada.</p>';
             return;
         }
 
@@ -1335,7 +1465,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
             
             const newItem = document.createElement('div');
-            newItem.className = 'track-list-item-display';
+            newItem.className = 'track-list-item-display track-row';
+            newItem.style.cssText = 'background: rgba(255,255,255,0.05); margin-bottom: 8px; border-radius: 4px;';
             newItem.dataset.itemId = `existing_${fullSong.id}`; 
             newItem.dataset.existingSongId = fullSong.id; 
             newItem.dataset.trackName = fullSong.title.replace(/ \(feat\. .+\)$/i, ''); 
@@ -1343,30 +1474,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             newItem.dataset.trackType = fullSong.trackType;
             newItem.dataset.feats = JSON.stringify(featsData); 
 
-            const titleDisplay = `<span class="track-title-display" style="color: var(--spotify-green);">
-                <i class="fas fa-link" style="font-size: 10px; margin-right: 5px;" title="Faixa Existente"></i>${fullSong.title}
-            </span>`; 
+            let artistText = "Desconhecido";
+            const mainArtistId = fullSong.artistIds[0];
+            const mainArtist = db.artists.find(a => a.id === mainArtistId);
+            if (mainArtist) {
+                if (featsData.length > 0) {
+                    if (featsData[0].type === "Dueto/Grupo") artistText = `${mainArtist.name} & ${featsData.map(f=>f.name).join(', ')}`;
+                    else artistText = `${mainArtist.name} (feat. ${featsData.map(f=>f.name).join(', ')})`;
+                } else {
+                    artistText = mainArtist.name;
+                }
+            }
+
+            const titleDisplay = (fullSong.id) 
+                ? `<i class="fas fa-link" style="font-size: 10px; margin-right: 5px;" title="Faixa Existente"></i>${fullSong.title}`
+                : fullSong.title;
 
             newItem.innerHTML = `
-                <span class="track-number-display">${fullSong.trackNumber || '?'}</span>
-                <i class="fas fa-bars drag-handle"></i>
-                <div class="track-actions">
-                    <button type="button" class="small-btn edit-track-btn" title="Editar tipo de faixa" style="border:none; padding:4px;">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button type="button" class="small-btn remove-track-btn" style="border:none; padding:4px; color:var(--trend-down-red);">
-                        <i class="fas fa-times"></i>
-                    </button>
+                <i class="fas fa-grip-vertical drag-handle" style="color:var(--text-secondary); cursor:grab; margin-right: 8px;"></i>
+                <span class="track-number track-number-display">${fullSong.trackNumber || '?'}</span>
+                <div class="track-info" style="flex-grow:1;">
+                    <span class="track-title" style="color: ${(fullSong.id)?'var(--spotify-green)':'var(--text-primary)'};">${titleDisplay}</span>
+                    <span class="track-artist-feat">${artistText} • <span style="font-size:11px; opacity:0.7;">${fullSong.trackType}</span></span>
                 </div>
-                <div class="track-info-display">
-                    ${titleDisplay}
-                    <div class="track-details-display">
-                        <span class="duration">Dura��o: ${fullSong.duration}</span>
-                        <span class="type">Tipo: ${fullSong.trackType}</span>
-                    </div>
-                    <div class="feat-list feat-list-display" style="margin-top:5px;">
-                        ${featsData.map(f => `<span class="feat-tag-display" style="font-size:11px; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">${f.type} ${f.name}</span>`).join('')}
-                    </div>
+                <span class="track-duration" style="margin-right: 16px;">${fullSong.duration}</span>
+                <div class="track-actions" style="display:flex; gap:12px;">
+                    <button type="button" class="small-btn edit-track-btn" style="border:none; padding:4px;"><i class="fas fa-pencil-alt"></i></button>
+                    <button type="button" class="small-btn remove-track-btn" style="border:none; padding:4px; color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
                 </div>
             `;
             editorElement.appendChild(newItem);
@@ -1389,14 +1523,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             studioLaunchWrapper = document.getElementById('studioLaunchWrapper');
             studioTabs = document.querySelectorAll('.studio-tab-btn');
             studioForms = document.querySelectorAll('.studio-form-content');
-            newSingleForm = document.getElementById('newSingleForm');
-            singleArtistSelect = document.getElementById('singleArtistSelect');
-            singleReleaseDateInput = document.getElementById('singleReleaseDate');
-            singleFeatList = document.getElementById('singleFeatList');
-            newAlbumForm = document.getElementById('newAlbumForm');
-            albumArtistSelect = document.getElementById('albumArtistSelect');
-            albumReleaseDateInput = document.getElementById('albumReleaseDate');
-            albumTracklistEditor = document.getElementById('albumTracklistEditor'); 
+            
+            // Novos Elementos WYSIWYG
+            wysiwygReleaseForm = document.getElementById('wysiwygReleaseForm');
+            wysiwygArtistSelect = document.getElementById('wysiwygArtistSelect');
+            wysiwygTitle = document.getElementById('wysiwygTitle');
+            wysiwygCoverFile = document.getElementById('wysiwygCoverFile');
+            wysiwygCoverUrl = document.getElementById('wysiwygCoverUrl');
+            wysiwygReleaseDate = document.getElementById('wysiwygReleaseDate');
+            wysiwygToggleDeluxe = document.getElementById('wysiwygToggleDeluxe');
+            wysiwygTracklistEditor = document.getElementById('wysiwygTracklistEditor');
+            wysiwygBg = document.getElementById('wysiwygBg');
+            wysiwygCoverImg = document.getElementById('wysiwygCoverImg');
+            wysiwygArtistImg = document.getElementById('wysiwygArtistImg');
+            openWysiwygAddTrackBtn = document.getElementById('openWysiwygAddTrackBtn');
+            openWysiwygExistingTrackBtn = document.getElementById('openWysiwygExistingTrackBtn');
+            submitWysiwygRelease = document.getElementById('submitWysiwygRelease');
+
             featModal = document.getElementById('featModal');
             featArtistSelect = document.getElementById('featArtistSelect');
             featTypeSelect = document.getElementById('featTypeSelect');
@@ -1408,7 +1551,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             cancelTrackTypeBtn = document.getElementById('cancelTrackTypeBtn');
             albumTrackModal = document.getElementById('albumTrackModal');
             albumTrackModalTitle = document.getElementById('albumTrackModalTitle');
-            openAddTrackModalBtn = document.getElementById('openAddTrackModalBtn'); 
             albumTrackNameInput = document.getElementById('albumTrackNameInput');
             albumTrackDurationInput = document.getElementById('albumTrackDurationInput');
             albumTrackTypeSelect = document.getElementById('albumTrackTypeSelect');
@@ -1458,13 +1600,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             deleteTrackIds = document.getElementById('deleteTrackIds');
             cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
             confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-            toggleExistingSingle = document.getElementById('toggleExistingSingle');
-            newTrackInfoGroup = document.getElementById('newTrackInfoGroup');
-            existingTrackGroup = document.getElementById('existingTrackGroup');
-            existingTrackSelect = document.getElementById('existingTrackSelect');
-            existingSingleTrackId = document.getElementById('existingSingleTrackId');
-            singleFeatSection = document.getElementById('singleFeatSection');
-            openExistingTrackModalBtn = document.getElementById('openExistingTrackModalBtn'); 
             existingTrackModal = document.getElementById('existingTrackModal');
             existingTrackSearch = document.getElementById('existingTrackSearch');
             existingTrackResults = document.getElementById('existingTrackResults');
@@ -1509,13 +1644,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             now.setSeconds(0); now.setMilliseconds(0); 
             const localISOTime = now.toISOString().slice(0, 16); 
 
-            if(singleReleaseDateInput) singleReleaseDateInput.value = localISOTime;
-            if(albumReleaseDateInput) albumReleaseDateInput.value = localISOTime;
-
-            window.albumArtistSelect = albumArtistSelect;
-            window.albumTracklistEditor = albumTracklistEditor; 
-            window.albumTitle = document.getElementById('albumTitle'); 
-            toggleDeluxe = document.getElementById('toggleDeluxe'); 
+            if(wysiwygReleaseDate) wysiwygReleaseDate.value = localISOTime;
 
             window.populateTracklistEditor = populateTracklistEditor; 
             
@@ -1528,9 +1657,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // --- 1. CARREGAMENTO DE DADOS (SUPABASE) ---
+    const parsePgArray = (arr) => {
+        if (Array.isArray(arr)) return arr;
+        if (typeof arr === 'string') {
+            return arr.replace(/^{|}$/g, '').split(',').map(s => s.trim().replace(/^"|"$/g, '')).filter(Boolean);
+        }
+        return [];
+    };
+
     async function loadAllData() {
-        if (SUPABASE_URL === 'COLOQUE_SUA_URL_AQUI' || !supabaseClient) {
-            alert("&#9888;&#65039; Configure a URL e a Chave do Supabase no c�digo HTML antes de continuar.");
+        // Tenta inicializar novamente caso a biblioteca tenha demorado a carregar
+        if (!supabaseClient && window.supabase && SUPABASE_URL.startsWith('http')) {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
+        if (!supabaseClient) {
+            console.error("⚠️ Biblioteca do Supabase não carregada. O app pode não funcionar corretamente.");
             return null;
         }
 
@@ -1547,8 +1689,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const musicasMap = new Map();
             (songsRes.data || []).forEach(row => {
-                const parentReleaseId = (row.album_ids && row.album_ids.length > 0) ? row.album_ids[0] : 
-                                        (row.single_ids && row.single_ids.length > 0 ? row.single_ids[0] : null);
+                const albumIds = parsePgArray(row.album_ids);
+                const singleIds = parsePgArray(row.single_ids);
+                const artistIds = parsePgArray(row.artist_ids);
+                const parentReleaseId = (albumIds.length > 0) ? albumIds[0] : 
+                                        (singleIds.length > 0 ? singleIds[0] : null);
 
                 musicasMap.set(row.id, {
                     id: row.id,
@@ -1556,11 +1701,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     duration: row.duration_seconds ? new Date(row.duration_seconds * 1000).toISOString().substr(14, 5) : "0:00",
                     trackNumber: row.track_number || 0,
                     durationSeconds: row.duration_seconds || 0,
-                    artistIds: row.artist_ids || [],
+                    artistIds: artistIds,
                     collabType: row.collab_type,
                     albumId: parentReleaseId, 
-                    albumIds: row.album_ids || [], 
-                    singleIds: row.single_ids || [], 
+                    albumIds: albumIds, 
+                    singleIds: singleIds, 
                     streams: row.streams || 0,
                     totalStreams: row.total_streams || 0,
                     trackType: row.track_type || 'B-side' 
@@ -1578,7 +1723,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     personalPoints: row.personal_points || 150 
                 };
                 
-                // Mapeia colunas de contagem e b�nus das a��es 
+                // Mapeia colunas de contagem e bônus das ações 
                 for (const key in ACTION_CONFIG) {
                     const config = ACTION_CONFIG[key];
                     artist[config.localCountKey] = row[config.localCountKey] || 0;
@@ -1602,7 +1747,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     return {
                         id: row.id,
-                        title: row.title || 'T�tulo Desconhecido',
+                        title: row.title || 'Título Desconhecido',
                         artist: artistName,
                         artistId: row.artist_id,
                         metascore: row.metascore || 0,
@@ -1628,7 +1773,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     id: row.id,
                     name: row.name,
                     password: row.password, 
-                    artists: row.artist_ids || []
+                    artists: parsePgArray(row.artist_ids)
                 })),
                 musicas: Array.from(musicasMap.values()) 
             };
@@ -1639,27 +1784,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const mapTable = (t) => {
-        if(t === 'M�sicas') return 'songs';
-        if(t === '�lbuns') return 'albums';
+        if(t === 'Músicas') return 'songs';
+        if(t === 'Álbuns') return 'albums';
         if(t === 'Singles e EPs') return 'singles';
         return t;
     };
 
     const mapFieldsToSupabase = (tableName, fields) => {
         const payload = {};
-        if(fields['Nome do �lbum'] || fields['Nome do Single/EP']) payload.title = fields['Nome do �lbum'] || fields['Nome do Single/EP'];
+        if(fields['Nome do Álbum'] || fields['Nome do Single/EP']) payload.title = fields['Nome do Álbum'] || fields['Nome do Single/EP'];
         if(fields['Nome da Faixa']) payload.title = fields['Nome da Faixa'];
-        if(fields['Artista']) payload.artist_id = Array.isArray(fields['Artista']) ? fields['Artista'][0] : fields['Artista'];
-        if(tableName === 'M�sicas' && fields['Artista']) payload.artist_ids = Array.isArray(fields['Artista']) ? fields['Artista'] : [fields['Artista']];
-        if(fields['Capa do �lbum'] || fields['Capa']) payload.image_url = (fields['Capa do �lbum'] || fields['Capa'])[0].url;
-        if(fields['Data de Lan�amento']) payload.release_date = fields['Data de Lan�amento'];
-        if(fields['Dura��o']) payload.duration_seconds = fields['Dura��o'];
-        if(fields['N� da Faixa']) payload.track_number = fields['N� da Faixa'];
+        
+        // Garante que artist_id seja uma string e artist_ids seja um array 
+        if (tableName === 'Músicas') {
+            if(fields['Artista']) payload.artist_ids = Array.isArray(fields['Artista']) ? fields['Artista'] : [fields['Artista']];
+        } else {
+            if(fields['Artista']) payload.artist_id = Array.isArray(fields['Artista']) ? fields['Artista'][0] : fields['Artista'];
+        }
+
+        if(fields['Capa do Álbum'] || fields['Capa']) payload.image_url = (fields['Capa do Álbum'] || fields['Capa'])[0].url;
+        if(fields['Data de Lançamento']) payload.release_date = fields['Data de Lançamento'];
+        if(fields['Duração']) payload.duration_seconds = fields['Duração'];
+        if(fields['Nº da Faixa']) payload.track_number = fields['Nº da Faixa'];
         if(fields['Tipo de Faixa']) payload.track_type = fields['Tipo de Faixa'];
-        if(fields['Tipo de Colabora��o']) payload.collab_type = fields['Tipo de Colabora��o'];
-        if(fields['�lbuns']) payload.album_ids = fields['�lbuns'];
+        if(fields['Tipo de Colaboração']) payload.collab_type = fields['Tipo de Colaboração'];
+        if(fields['Álbuns']) payload.album_ids = fields['Álbuns'];
         if(fields['Singles e EPs']) payload.single_ids = fields['Singles e EPs'];
-        if(fields['� deluxe?'] !== undefined) payload.is_deluxe = fields['� deluxe?'];
+        if(fields['É deluxe?'] !== undefined) payload.is_deluxe = fields['É deluxe?'];
         return payload;
     };
 
@@ -1779,9 +1930,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const allReleases = [...(data.albums || []), ...(data.singles || [])];
             allReleases.forEach(item => {
+                const involvedArtistIds = new Set([item.artistId]); // Garante o artista principal
+
                 (item.trackIds || []).forEach(trackId => {
                     const songInDb = db.songs.find(sDb => sDb.id === trackId);
                     if (songInDb) {
+                        // Coleta todos os feats de todas as faixas do lançamento
+                        if (songInDb.artistIds) {
+                            songInDb.artistIds.forEach(id => involvedArtistIds.add(id));
+                        }
+
                         if (songInDb.albumId === item.id && songInDb.cover === 'https://i.imgur.com/AD3MbBi.png') {
                             songInDb.cover = item.imageUrl;
                         }
@@ -1797,14 +1955,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 });
 
-                const artistEntry = db.artists.find(a => a.id === item.artistId);
                 if (item.type === 'album') {
                     db.albums.push(item);
-                    if (artistEntry) { artistEntry.albums.push(item); }
                 } else {
                     db.singles.push(item);
-                    if (artistEntry) { artistEntry.singles.push(item); }
                 }
+
+                // Distribui a capa para a discografia de TODOS os artistas envolvidos
+                involvedArtistIds.forEach(aId => {
+                    const artistEntry = db.artists.find(a => a.id === aId);
+                    if (artistEntry) {
+                        if (item.type === 'album') {
+                            if (!artistEntry.albums.some(a => a.id === item.id)) artistEntry.albums.push(item);
+                        } else {
+                            if (!artistEntry.singles.some(a => a.id === item.id)) artistEntry.singles.push(item);
+                        }
+                    }
+                });
             });
 
             db.artists.forEach(artist => {
@@ -1817,7 +1984,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.db = db;
             return true; 
         } catch (error) {
-            console.error("ERRO CR�TICO durante initializeData:", error);
+            console.error("ERRO CRÍTICO durante initializeData:", error);
             return false; 
         }
     };
@@ -1869,14 +2036,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 renderChart('album');
 
                 if (currentPlayer) {
+                    currentPlayer = db.players.find(p => p.id === currentPlayer.id) || currentPlayer;
+
                     populateArtistSelector(currentPlayer.id); 
                     displayArtistActions();
 
                     if (document.querySelector('.studio-tab-btn[data-form="edit"]')?.classList.contains('active')) {
                         populateEditableReleases();
-                    }
-                    if (toggleExistingSingle?.checked) {
-                        populatePlayerTracks('existingTrackSelect');
                     }
                 }
 
@@ -1907,7 +2073,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 
-    // --- 2. NAVEGA��O E UI ---
+    // --- 2. NAVEGAÇÃO E UI ---
     const switchView = (viewId) => {
         const currentView = document.querySelector('.page-view:not(.hidden)');
 
@@ -1976,8 +2142,8 @@ document.addEventListener('DOMContentLoaded', async () => {
               } else {
                   const currentlyActiveForm = document.querySelector('.studio-form-content.active');
                    if (!currentlyActiveForm) { 
-                        document.getElementById('newSingleForm')?.classList.add('active');
-                        document.querySelector('.studio-tab-btn[data-form="single"]')?.classList.add('active');
+                        document.getElementById('wysiwygReleaseForm')?.classList.add('active');
+                        document.querySelector('.studio-tab-btn[data-form="release"]')?.classList.add('active');
                    }
               }
 
@@ -2162,7 +2328,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `).join('');
         } else {
-            popularContainer.innerHTML = '<p class="empty-state-small">Nenhuma m�sica popular lan�ada encontrada.</p>';
+            popularContainer.innerHTML = '<p class="empty-state-small">Nenhuma música popular lançada encontrada.</p>';
         }
 
         const nowSort = new Date();
@@ -2206,7 +2372,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p>${album.title}</p>
                 <span>${new Date(album.releaseDate).getFullYear()}</span>
             </div>
-        `).join('') || '<p class="empty-state-small">Nenhum �lbum encontrado.</p>';
+        `).join('') || '<p class="empty-state-small">Nenhum álbum encontrado.</p>';
 
         const singlesContainer = document.getElementById('singlesList');
         const sortedSingles = (artist.singles || []).sort(customSort);
@@ -2302,7 +2468,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <span class="track-duration"><i class="fas fa-lock"></i></span>
                         </div>`;
                 }
-            }).join('') || '<p class="empty-state-small">Tracklist ainda n�o revelada.</p>';
+            }).join('') || '<p class="empty-state-small">Tracklist ainda não revelada.</p>';
 
         } else {
             normalInfoContainer?.classList.remove('hidden');
@@ -2311,7 +2477,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const releaseYear = releaseDate.getFullYear();
             const totalAlbumStreamsFormatted = (album.totalStreams || 0).toLocaleString('pt-BR');
             document.getElementById('albumDetailInfo').innerHTML =
-                `Por <strong class="artist-link" data-artist-name="${artistObj ? artistObj.name : ''}">${album.artist}</strong> � ${releaseYear} � ${totalAlbumStreamsFormatted} streams totais`;
+                `Por <strong class="artist-link" data-artist-name="${artistObj ? artistObj.name : ''}">${album.artist}</strong> • ${releaseYear} • ${totalAlbumStreamsFormatted} streams totais`;
 
             tracklistContainer.innerHTML = (album.tracks || []).map(song => {
                 const artistName = formatArtistString(song.artistIds, song.collabType);
@@ -2326,7 +2492,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </div>
                         <span class="track-duration">${streams.toLocaleString('pt-BR')}</span>
                     </div>`;
-            }).join('') || '<p class="empty-state-small">Nenhuma faixa encontrada para este lan�amento.</p>'; 
+            }).join('') || '<p class="empty-state-small">Nenhuma faixa encontrada para este lançamento.</p>'; 
         }
         switchView('albumDetail');
     };
@@ -2354,7 +2520,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             ? (activeArtist.albums || []).sort(customSort)
             : (activeArtist.singles || []).sort(customSort);
 
-        const title = (type === 'albums') ? `�lbuns de ${activeArtist.name}` : `Singles & EPs de ${activeArtist.name}`;
+        const title = (type === 'albums') ? `Álbuns de ${activeArtist.name}` : `Singles & EPs de ${activeArtist.name}`;
         document.getElementById('discographyTypeTitle').textContent = title;
 
         const grid = document.getElementById('discographyGrid');
@@ -2364,7 +2530,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p class="artist-card-name">${item.title}</p>
                 <span class="artist-card-type">${new Date(item.releaseDate).getFullYear()}</span>
             </div>
-        `).join('') || '<p class="empty-state">Nenhum lan�amento encontrado.</p>'; 
+        `).join('') || '<p class="empty-state">Nenhum lançamento encontrado.</p>'; 
 
         switchView('discographyDetail');
     };
@@ -2400,7 +2566,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         if (filteredAlbums.length > 0) {
-            html += '<h3 class="section-title" style="grid-column: 1/-1; margin-top:24px;">�lbuns & Singles</h3>';
+            html += '<h3 class="section-title" style="grid-column: 1/-1; margin-top:24px;">Álbuns & Singles</h3>';
             html += filteredAlbums.map(al => {
                 resultCount++;
                 return `
@@ -2507,7 +2673,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const distance = targetTime - now;
 
             if (distance < 0) {
-                container.innerHTML = '<p style="color: var(--spotify-green); font-weight: bold;">Lan�ado!</p>';
+                container.innerHTML = '<p style="color: var(--spotify-green); font-weight: bold;">Lançado!</p>';
                 if (albumCountdownInterval) {
                     clearInterval(albumCountdownInterval);
                     albumCountdownInterval = null;
@@ -2621,13 +2787,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         }).join(''); 
     }
 
-    // --- 4. SISTEMA DO EST�DIO ---
+    // --- 4. SISTEMA DO ESTÚDIO ---
 
     function initializeStudio() {
-        setupImageUpload('singleCoverFile', 'singleCoverUrl');
-        setupImageUpload('albumCoverFile', 'albumCoverUrl');
-        setupImageUpload('editReleaseCoverFile', 'editReleaseCoverUrl');
-        setupImageUpload('newArtistImageFile', 'newArtistImageUrl');
+        setupImageUploadWithPreview('wysiwygCoverFile', 'wysiwygCoverUrl', 'wysiwygCoverImg', 'wysiwygBg');
+        setupImageUploadWithPreview('editReleaseCoverFile', 'editReleaseCoverUrl', 'editWysiwygCoverImg', 'editWysiwygBg');
+        setupImageUploadWithPreview('newArtistImageFile', 'newArtistImageUrl');
+
+        wysiwygArtistSelect?.addEventListener('change', (e) => {
+            const artist = db.artists.find(a => a.id === e.target.value);
+            if(artist && wysiwygArtistImg) wysiwygArtistImg.src = artist.img;
+        });
 
         loginButton?.addEventListener('click', () => {
              const username = document.getElementById('usernameInput')?.value;
@@ -2636,7 +2806,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         logoutButton?.addEventListener('click', logoutPlayer);
         
-        // Listeners para a troca de visualiza��o de Login/Registro
+        // Listeners para a troca de visualização de Login/Registro
         showRegisterBtn?.addEventListener('click', (e) => {
             e.preventDefault();
             loginPrompt?.classList.add('hidden');
@@ -2664,10 +2834,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clickedTab.classList.add('active');
 
                 let targetElementId;
-                if (formTarget === 'single') {
-                    targetElementId = 'newSingleForm';
-                } else if (formTarget === 'album') {
-                    targetElementId = 'newAlbumForm';
+                if (formTarget === 'release') {
+                    targetElementId = 'wysiwygReleaseForm';
                     initAlbumForm();
                 } else if (formTarget === 'edit') {
                     targetElementId = 'editReleaseSection';
@@ -2687,22 +2855,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         confirmFeatBtn?.addEventListener('click', confirmFeat);
         cancelFeatBtn?.addEventListener('click', closeFeatModal);
-        newSingleForm?.addEventListener('click', (e) => {
-            const addFeatButton = e.target.closest('.add-feat-btn[data-target="singleFeatList"]');
-            if (addFeatButton) {
-                openFeatModal(addFeatButton);
-            }
-        });
 
         saveAlbumTrackBtn?.addEventListener('click', saveAlbumTrack);
         cancelAlbumTrackBtn?.addEventListener('click', closeAlbumTrackModal);
 
-        openAddTrackModalBtn?.addEventListener('click', () => {
-            activeTracklistEditor = albumTracklistEditor; 
+        openWysiwygAddTrackBtn?.addEventListener('click', () => {
+            activeTracklistEditor = wysiwygTracklistEditor; 
             openAlbumTrackModal();
         });
-        openExistingTrackModalBtn?.addEventListener('click', () => {
-             activeTracklistEditor = albumTracklistEditor; 
+        openWysiwygExistingTrackBtn?.addEventListener('click', () => {
+             activeTracklistEditor = wysiwygTracklistEditor; 
              openExistingTrackModal('album');
         });
 
@@ -2719,17 +2881,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         confirmInlineFeatBtn?.addEventListener('click', confirmInlineFeat);
         cancelInlineFeatBtn?.addEventListener('click', cancelInlineFeat);
 
-        albumTracklistEditor?.addEventListener('click', (e) => {
+        wysiwygTracklistEditor?.addEventListener('click', (e) => {
             const editButton = e.target.closest('.edit-track-btn');
             const removeButton = e.target.closest('.remove-track-btn');
             const trackItem = e.target.closest('.track-list-item-display');
 
             if (editButton && trackItem) {
-                activeTracklistEditor = albumTracklistEditor; 
+                activeTracklistEditor = wysiwygTracklistEditor; 
                 openAlbumTrackModal(trackItem);
             } else if (removeButton && trackItem) {
                 trackItem.remove();
-                updateTrackNumbers(albumTracklistEditor); 
+                updateTrackNumbers(wysiwygTracklistEditor); 
             }
         });
 
@@ -2759,7 +2921,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                  const releaseId = deleteButton.dataset.releaseId;
                  const releaseType = deleteButton.dataset.releaseType;
                  const tableName = deleteButton.dataset.releaseTable;
-                 const releaseTitle = deleteButton.closest('.edit-release-item')?.querySelector('.edit-release-title')?.textContent || 'este lan�amento';
+                 const releaseTitle = deleteButton.closest('.edit-release-item')?.querySelector('.edit-release-title')?.textContent || 'este lançamento';
                  const release = (releaseType === 'album' ? db.albums : db.singles).find(r => r.id === releaseId);
                  const trackIdsToDelete = release?.trackIds || [];
                  openDeleteConfirmModal(releaseId, tableName, releaseTitle, trackIdsToDelete);
@@ -2775,30 +2937,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         editArtistFilterSelect?.addEventListener('change', populateEditableReleases);
 
-        newSingleForm?.addEventListener('submit', handleSingleSubmit);
-        newAlbumForm?.addEventListener('submit', handleAlbumSubmit);
-
-        confirmTrackTypeBtn?.addEventListener('click', () => {
-            const selectedType = trackTypeSelect.value;
-            if (selectedType) {
-                processSingleSubmission(selectedType);
-            } 
-        });
-        cancelTrackTypeBtn?.addEventListener('click', () => {
-            trackTypeModal?.classList.add('hidden');
-            const btn = document.getElementById('submitNewSingle');
-            if (btn) {
-                btn.disabled = false;
-                btn.textContent = 'Lan�ar Single';
-            }
-        });
-
-        singleArtistSelect?.addEventListener('change', () => {
-             if (toggleExistingSingle?.checked) {
-                 populatePlayerTracks('existingTrackSelect');
-             }
-        });
-        toggleExistingSingle?.addEventListener('change', () => toggleSingleFormMode(false));
+        wysiwygReleaseForm?.addEventListener('submit', handleWysiwygSubmit);
 
         existingTrackSearch?.addEventListener('input', populateExistingTrackSearch);
         cancelExistingTrackBtn?.addEventListener('click', closeExistingTrackModal);
@@ -2806,18 +2945,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         initAlbumForm(); 
         
-        if (editAlbumTracklistEditor && typeof Sortable !== 'undefined') {
-            if (editAlbumTracklistSortable) { 
-                editAlbumTracklistSortable.destroy();
+        if (typeof Sortable !== 'undefined') {
+            if (wysiwygTracklistEditor) {
+                wysiwygTracklistSortable = Sortable.create(wysiwygTracklistEditor, {
+                    animation: 150,
+                    handle: '.drag-handle',
+                    onEnd: () => updateTrackNumbers(wysiwygTracklistEditor) 
+                });
             }
-            editAlbumTracklistSortable = Sortable.create(editAlbumTracklistEditor, {
-                animation: 150,
-                handle: '.drag-handle',
-                onEnd: () => updateTrackNumbers(editAlbumTracklistEditor) 
-            });
-        } 
+            if (editAlbumTracklistEditor) {
+                editAlbumTracklistSortable = Sortable.create(editAlbumTracklistEditor, {
+                    animation: 150,
+                    handle: '.drag-handle',
+                    onEnd: () => updateTrackNumbers(editAlbumTracklistEditor) 
+                });
+            }
+        }
         
-        // A��ES (Batalha de Charts) Listeners
+        // AÇÕES (Batalha de Charts) Listeners
         actionTypeSelect?.addEventListener('change', () => {
             const actionType = actionTypeSelect.value;
             if (IMAGE_ACTION_CONFIG[actionType]) {
@@ -2825,7 +2970,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 trackSelectWrapper.classList.add('hidden');
                 actionLimitInfo.classList.add('hidden');
                 confirmActionButton.disabled = false;
-                confirmActionButton.textContent = 'Confirmar A��o de Imagem';
+                confirmActionButton.textContent = 'Confirmar Ação de Imagem';
             } else if (ACTION_CONFIG[actionType]) {
                 releaseSelectWrapper.classList.remove('hidden');
                 updateActionLimitInfo();
@@ -2854,17 +2999,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function registerPlayer(username, password) {
         if (!username || !password) { 
-            alert("Preencha usu�rio e senha."); 
+            alert("Preencha usuário e senha."); 
             return; 
         }
         
         try {
-            // Verifica se o nome j� existe
+            // Verifica se o nome já existe
             const { data: existing, error: searchError } = await supabaseClient.from('players').select('id').ilike('name', username);
             if (searchError) throw searchError;
 
             if (existing && existing.length > 0) {
-                alert("Este nome de usu�rio j� est� em uso. Tente outro.");
+                alert("Este nome de usuário já está em uso. Tente outro.");
                 return;
             }
 
@@ -2931,7 +3076,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             // Recarrega os dados e volta pra primeira aba
             await refreshAllData();
-            document.querySelector('.studio-tab-btn[data-form="single"]')?.click();
+            document.querySelector('.studio-tab-btn[data-form="release"]')?.click();
             
         } catch(e) {
             alert("Erro ao criar artista: " + e.message);
@@ -2943,7 +3088,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function loginPlayer(username, password) {
         if (!username || !password) {
-            alert("Por favor, insira nome de usu�rio e senha.");
+            alert("Por favor, insira nome de usuário e senha.");
             return;
         }
         const foundPlayer = db.players.find(p => p.name.toLowerCase() === username.toLowerCase());
@@ -2967,10 +3112,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populateEditableReleases();
             }
 
-            populatePlayerTracks('existingTrackSelect');
-
         } else {
-            alert("Usu�rio ou senha inv�lidos.");
+            alert("Usuário ou senha inválidos.");
             const passwordInput = document.getElementById('passwordInput');
             if (passwordInput) passwordInput.value = '';
         }
@@ -2996,22 +3139,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (usernameInput) usernameInput.value = '';
         if (passwordInput) passwordInput.value = '';
 
-        if (editReleaseList) editReleaseList.innerHTML = '<p class="empty-state-small">Fa�a login para ver seus lan�amentos.</p>';
+        if (editReleaseList) editReleaseList.innerHTML = '<p class="empty-state-small">Faça login para ver seus lançamentos.</p>';
         if (editArtistFilterSelect) editArtistFilterSelect.innerHTML = '<option value="all">Todos os Artistas</option>';
-        if(singleArtistSelect) singleArtistSelect.innerHTML = '<option value="">Selecione...</option>';
-        if(albumArtistSelect) albumArtistSelect.innerHTML = '<option value="">Selecione...</option>';
-        if(existingTrackSelect) existingTrackSelect.innerHTML = '<option value="">Selecione um Artista...</option>';
+        if(wysiwygArtistSelect) wysiwygArtistSelect.innerHTML = '<option value="">Selecione...</option>';
 
          editReleaseForm?.classList.add('hidden');
          editReleaseListContainer?.classList.remove('hidden');
 
-         if(toggleExistingSingle) toggleExistingSingle.checked = false;
-         toggleSingleFormMode(true);
-
          studioTabs.forEach(t => t.classList.remove('active'));
          studioForms.forEach(f => f.classList.remove('active'));
-         document.querySelector('.studio-tab-btn[data-form="single"]')?.classList.add('active');
-         document.getElementById('newSingleForm')?.classList.add('active');
+         document.querySelector('.studio-tab-btn[data-form="release"]')?.classList.add('active');
+         document.getElementById('wysiwygReleaseForm')?.classList.add('active');
     }
 
     function populateArtistSelector(playerId) {
@@ -3024,18 +3162,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             return artist ? `<option value="${artist.id}">${artist.name}</option>` : '';
         }).join('');
 
-        if (singleArtistSelect) {
-            singleArtistSelect.innerHTML = `<option value="">Selecione...</option>${optionsHtml}`;
-        }
-        if (albumArtistSelect) {
-            albumArtistSelect.innerHTML = `<option value="">Selecione...</option>${optionsHtml}`;
+        if (wysiwygArtistSelect) {
+            if (playerArtistIds.length === 0) {
+                wysiwygArtistSelect.innerHTML = `<option value="">Nenhum artista (Crie na aba Novo Artista)</option>`;
+            } else {
+                wysiwygArtistSelect.innerHTML = `<option value="" disabled selected>Selecione o Artista...</option>${optionsHtml}`;
+                if (playerArtistIds.length === 1) {
+                    wysiwygArtistSelect.value = playerArtistIds[0];
+                    const artist = db.artists.find(a => a.id === playerArtistIds[0]);
+                    if(artist && wysiwygArtistImg) wysiwygArtistImg.src = artist.img;
+                }
+            }
         }
         if (editArtistFilterSelect) {
             editArtistFilterSelect.innerHTML = `<option value="all">Todos os Artistas</option>${optionsHtml}`;
         }
     }
 
-    // --- Fun��es de A��es / Batalha de Charts ---
+    // --- Funções de Ações / Batalha de Charts ---
     function displayArtistActions() {
         if (!currentPlayer || !artistActionsList) return;
         const playerArtists = currentPlayer.artists
@@ -3044,7 +3188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .sort((a, b) => a.name.localeCompare(b.name));
 
         if (playerArtists.length === 0) {
-            artistActionsList.innerHTML = "<p class='empty-state-small'>Voc� n�o controla nenhum artista. Crie um na aba Est�dio!</p>";
+            artistActionsList.innerHTML = "<p class='empty-state-small'>Você não controla nenhum artista. Crie um na aba Estúdio!</p>";
             return;
         }
 
@@ -3056,7 +3200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <span class="edit-release-artist" style="display: block; font-size: 12px; color: #aaa;">Status de Imagem: <strong style="color:var(--text-primary)">${artist.personalPoints || 150} pontos</strong></span>
                 </div>
                 <div class="action-buttons">
-                    <button class="small-btn btn-open-action-modal">Selecionar A��o</button>
+                    <button class="small-btn btn-open-action-modal">Selecionar Ação</button>
                 </div>
             </div>`).join('');
 
@@ -3072,11 +3216,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populateReleaseSelectForActions(artist.id);
 
                 actionTypeSelect.value = "";
-                trackSelect.innerHTML = '<option value="" disabled selected>Selecione um lan�amento primeiro</option>';
+                trackSelect.innerHTML = '<option value="" disabled selected>Selecione um lançamento primeiro</option>';
                 trackSelectWrapper.classList.add('hidden');
                 actionLimitInfo.classList.add('hidden');
                 confirmActionButton.disabled = true;
-                confirmActionButton.textContent = 'Confirmar A��o';
+                confirmActionButton.textContent = 'Confirmar Ação';
                 
                 releaseSelectWrapper.classList.remove('hidden');
                 actionModal.classList.remove('hidden');
@@ -3104,9 +3248,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         const allReleaseIds = new Set([...mainReleaseIds, ...featuredReleaseIds]);
         const allReleases = [...db.albums, ...db.singles].filter(r => allReleaseIds.has(r.id));
 
-        releaseSelect.innerHTML = '<option value="" disabled selected>Selecione o Lan�amento...</option>';
+        releaseSelect.innerHTML = '<option value="" disabled selected>Selecione o Lançamento...</option>';
         if (allReleases.length === 0) {
-            releaseSelect.innerHTML += '<option value="" disabled>Nenhum lan�amento encontrado</option>';
+            releaseSelect.innerHTML += '<option value="" disabled>Nenhum lançamento encontrado</option>';
             return;
         }
 
@@ -3131,10 +3275,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             return inRelease && (isActionableType || isBonus) && t.artistIds.includes(artistId);
         });
 
-        trackSelect.innerHTML = '<option value="" disabled selected>Selecione a Faixa T�tulo...</option>';
+        trackSelect.innerHTML = '<option value="" disabled selected>Selecione a Faixa Título...</option>';
 
         if (releaseActionableTracks.length === 0) {
-            trackSelect.innerHTML += '<option value="" disabled>Nenhuma faixa acion�vel sua neste lan�amento</option>';
+            trackSelect.innerHTML += '<option value="" disabled>Nenhuma faixa acionável sua neste lançamento</option>';
             trackSelectWrapper.classList.remove('hidden');
             return;
         }
@@ -3147,7 +3291,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 let label = t.trackType;
                 if (t.isBonusTrack && !actionableTypes.includes(t.trackType)) {
-                    label = 'Faixa B�nus';
+                    label = 'Faixa Bônus';
                 }
                 o.textContent = `${t.title} (${label})`;
                 trackSelect.appendChild(o);
@@ -3199,14 +3343,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             currentActionCount.style.color = 'var(--text-primary)';
             confirmActionButton.disabled = false;
-            confirmActionButton.textContent = 'Confirmar A��o';
+            confirmActionButton.textContent = 'Confirmar Ação';
         }
     }
 
     async function handleConfirmAction() {
         const actionType = actionTypeSelect.value;
         if (!actionType) {
-            alert("Selecione um tipo de a��o.");
+            alert("Selecione um tipo de ação.");
             return;
         }
 
@@ -3215,7 +3359,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else if (ACTION_CONFIG[actionType]) {
             await handlePromotionAction(actionType);
         } else {
-            alert("Tipo de a��o desconhecido.");
+            alert("Tipo de ação desconhecido.");
         }
     }
 
@@ -3225,7 +3369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const config = IMAGE_ACTION_CONFIG[actionType];
 
         if (!artist || !config) {
-            alert("Erro: Artista ou configura��o de a��o de imagem n�o encontrados.");
+            alert("Erro: Artista ou configuração de ação de imagem não encontrados.");
             return;
         }
 
@@ -3238,10 +3382,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (Math.random() < 0.7) { 
             pointsChange = getRandomInt(config.gain.min, config.gain.max);
-            message = `&#128200; Sucesso! Sua imagem melhorou! Voc� ganhou +${pointsChange} pontos pessoais.`;
+            message = `📈 Sucesso! Sua imagem melhorou! Você ganhou +${pointsChange} pontos pessoais.`;
         } else {
             pointsChange = -getRandomInt(config.loss.min, config.loss.max);
-            message = `&#128201; Fracasso... Sua imagem foi manchada! Voc� perdeu ${Math.abs(pointsChange)} pontos pessoais.`;
+            message = `📉 Fracasso... Sua imagem foi manchada! Você perdeu ${Math.abs(pointsChange)} pontos pessoais.`;
         }
 
         const currentPoints = artist.personalPoints || 150;
@@ -3254,15 +3398,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             artist.personalPoints = newPoints;
             displayArtistActions(); 
 
-            alert(`A��o de Imagem: "${actionName}"\n\n${message}\n\nPontos Atuais: ${newPoints}`);
+            alert(`Ação de Imagem: "${actionName}"\n\n${message}\n\nPontos Atuais: ${newPoints}`);
             actionModal.classList.add('hidden');
 
         } catch (err) {
             console.error('Erro ao salvar pontos pessoais:', err);
-            alert(`Erro ao salvar a��o: ${err.message}`);
+            alert(`Erro ao salvar ação: ${err.message}`);
         } finally {
             confirmActionButton.disabled = false;
-            confirmActionButton.textContent = 'Confirmar A��o';
+            confirmActionButton.textContent = 'Confirmar Ação';
        }
     }
 
@@ -3272,7 +3416,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const selectedReleaseId = releaseSelect.value;
 
         if (!artistId || !trackId || !actionType || !selectedReleaseId) { 
-            alert("Selecione artista, lan�amento, faixa e tipo de a��o."); 
+            alert("Selecione artista, lançamento, faixa e tipo de ação."); 
             return; 
         }
 
@@ -3281,7 +3425,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const config = ACTION_CONFIG[actionType];
         
         if (!artist || !selectedTrack || !config) { 
-            alert("Erro: Dados inv�lidos (artista, faixa ou config)."); 
+            alert("Erro: Dados inválidos (artista, faixa ou config)."); 
             return; 
         }
 
@@ -3290,7 +3434,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const currentCount = artist[config.localCountKey] || 0;
 
         if (currentCount >= limit) {
-            alert("Limite de uso para esta a��o j� foi atingido.");
+            alert("Limite de uso para esta ação já foi atingido.");
             return;
         }
 
@@ -3311,17 +3455,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (!hasClaimedBonus && jackpotCheck < 0.01) {
             streamsToAdd = 200000;
-            eventMessage = "&#127881; JACKPOT! Voc� viralizou inesperadamente e ganhou +200k streams! (B�nus de categoria �nico)";
+            eventMessage = "🎉 JACKPOT! Você viralizou inesperadamente e ganhou +200k streams! (Bônus de categoria único)";
             artistUpdates[bonusLocalKey] = true;
             artist[bonusLocalKey] = true;
         } else if (eventCheck < 0.05) { 
             const bonus = getRandomBonus();
             streamsToAdd = bonus.value;
-            eventMessage = `&#10024; B�NUS! ${bonus.message}`;
+            eventMessage = `✨ BÔNUS! ${bonus.message}`;
         } else if (eventCheck >= 0.05 && eventCheck < 0.10) {
             const punishment = getRandomPunishment();
             streamsToAdd = punishment.value;
-            eventMessage = `&#128201; PUNI��O! ${punishment.message}`;
+            eventMessage = `📉 PUNIÇÃO! ${punishment.message}`;
         } else { 
             streamsToAdd = getRandomInt(config.minStreams, config.maxStreams);
         }
@@ -3398,7 +3542,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     });
                     let detailMsg = `   +${gain.toLocaleString('pt-BR')} para "${otherTrack.title}" (${(percentageUsed * 100).toFixed(1)}%)`;
                     if (isLargeAlbum && bSideTypes.includes(otherTrack.trackType)) {
-                        detailMsg += " (Nerf �lbum Grande)";
+                        detailMsg += " (Nerf Álbum Grande)";
                     }
                     distributionDetails.push(detailMsg);
                 }
@@ -3423,41 +3567,41 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
 
-            let alertMessage = `A��o "${actionTypeSelect.options[actionTypeSelect.selectedIndex].text}" registrada!\n\n`;
+            let alertMessage = `Ação "${actionTypeSelect.options[actionTypeSelect.selectedIndex].text}" registrada!\n\n`;
             if (eventMessage) alertMessage += `${eventMessage}\n\n`;
 
             if (streamsToAdd >= 0) {
-             	alertMessage += `&#128200; Ganho Principal: +${streamsToAdd.toLocaleString('pt-BR')} streams para "${selectedTrack.title}"${pointsMessage}.\n\n`;
+             	alertMessage += `📈 Ganho Principal: +${streamsToAdd.toLocaleString('pt-BR')} streams para "${selectedTrack.title}"${pointsMessage}.\n\n`;
             } else {
-                 alertMessage += `&#128201; Perda Principal: ${streamsToAdd.toLocaleString('pt-BR')} streams para "${selectedTrack.title}".\n\n`;
+                 alertMessage += `📉 Perda Principal: ${streamsToAdd.toLocaleString('pt-BR')} streams para "${selectedTrack.title}".\n\n`;
             }
 
             if (totalDistributedGain > 0) {
-                alertMessage += `&#10024; +${totalDistributedGain.toLocaleString('pt-BR')} streams distribu�dos para outras faixas:\n`;
+                alertMessage += `✨ +${totalDistributedGain.toLocaleString('pt-BR')} streams distribuídos para outras faixas:\n`;
                 alertMessage += distributionDetails.join('\n');
                 alertMessage += "\n\n";
             }
 
-            alertMessage += `&#128202; Uso da A��o: ${newCount}/${limit}`;
+            alertMessage += `📊 Uso da Ação: ${newCount}/${limit}`;
             if (!isMain && config.limit !== 5) {
-                alertMessage += ` (Limite de 5 usos para participa��es "Feat.")`;
+                alertMessage += ` (Limite de 5 usos para participações "Feat.")`;
             }
 
             alert(alertMessage);
             actionModal.classList.add('hidden');
 
         } catch (err) {
-            console.error('Erro ao tentar persistir a��o de streams no Supabase:', err);
-            alert(`Erro ao salvar a��o: ${err.message}`);
+            console.error('Erro ao tentar persistir ação de streams no Supabase:', err);
+            alert(`Erro ao salvar ação: ${err.message}`);
         } finally {
             confirmActionButton.disabled = false;
-            confirmActionButton.textContent = 'Confirmar A��o';
+            confirmActionButton.textContent = 'Confirmar Ação';
             updateActionLimitInfo();
         }
     }
 
 
-    // --- Fun��es de Feat ---
+    // --- Funções de Feat ---
     function populateArtistSelectForFeat(targetSelectElement) {
         let currentMainArtistId = null;
         let selectElement = targetSelectElement;
@@ -3468,12 +3612,9 @@ document.addEventListener('DOMContentLoaded', async () => {
              const artist = db.artists.find(a => a.name === artistName);
              currentMainArtistId = artist ? artist.id : null;
              selectElement = inlineFeatArtistSelect; 
-        } else if (activeTracklistEditor === albumTracklistEditor || newAlbumForm?.classList.contains('active')) {
-             currentMainArtistId = albumArtistSelect?.value;
+        } else if (activeTracklistEditor === wysiwygTracklistEditor || wysiwygReleaseForm?.classList.contains('active')) {
+             currentMainArtistId = wysiwygArtistSelect?.value;
              selectElement = inlineFeatArtistSelect; 
-        } else if (newSingleForm?.classList.contains('active')) {
-            currentMainArtistId = singleArtistSelect?.value;
-            selectElement = featArtistSelect; 
         } else {
              selectElement = featArtistSelect; 
         }
@@ -3486,7 +3627,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .map(artist => `<option value="${artist.id}">${artist.name}</option>`)
             .join('');
 
-        selectElement.innerHTML = featOptions || '<option value="">Nenhum outro artista dispon�vel</option>';
+        selectElement.innerHTML = featOptions || '<option value="">Nenhum outro artista disponível</option>';
     }
 
     function openFeatModal(buttonElement) {
@@ -3665,7 +3806,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const featsJSON = JSON.stringify(featsData);
 
         if (!name || !durationStr || durationSec === 0) {
-            alert("Nome da faixa e dura��o (formato MM:SS) s�o obrigat�rios.");
+            alert("Nome da faixa e duração (formato MM:SS) são obrigatórios.");
             return;
         }
 
@@ -3678,10 +3819,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             const originalFeats = editingTrackItem.dataset.feats || '[]';
 
             if (name !== originalName || durationStr !== originalDuration || featsJSON !== originalFeats) {
-                alert(`Voc� modificou uma faixa existente. Ela ser� salva como uma NOVA faixa.`);
+                alert(`Você modificou uma faixa existente. Ela será salva como uma NOVA faixa.`);
                 existingSongId = null; 
                 linkBroken = true;
             }
+        }
+        
+        let mainArtistName = "Desconhecido";
+        if (activeTracklistEditor === wysiwygTracklistEditor) {
+            const sel = document.getElementById('wysiwygArtistSelect');
+            if(sel && sel.selectedIndex >= 0 && sel.value !== "") mainArtistName = sel.options[sel.selectedIndex].text;
+        } else if (activeTracklistEditor === editAlbumTracklistEditor) {
+            const disp = document.getElementById('editArtistNameDisplay');
+            if(disp) mainArtistName = disp.textContent;
+        }
+
+        let artistText = mainArtistName;
+        if (featsData.length > 0) {
+            if (featsData[0].type === "Dueto/Grupo") artistText = `${mainArtistName} & ${featsData.map(f=>f.name).join(', ')}`;
+            else artistText = `${mainArtistName} (feat. ${featsData.map(f=>f.name).join(', ')})`;
         }
         
         if (targetElement) {
@@ -3695,24 +3851,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             
             targetElement.innerHTML = `
-                <i class="fas fa-bars drag-handle" style="color:#555; cursor:grab;"></i>
-                <span class="track-number-display" style="color:#888; font-size:14px; width:20px; text-align:center;"></span>
-                <div style="flex-grow:1;">
-                    <div style="color:${(existingSongId && !linkBroken) ? 'var(--spotify-green)' : '#fff'}; font-size:14px;">
+                <i class="fas fa-grip-vertical drag-handle" style="color:var(--text-secondary); cursor:grab; margin-right: 8px;"></i>
+                <span class="track-number track-number-display"></span>
+                <div class="track-info" style="flex-grow:1;">
+                    <span class="track-title" style="color:${(existingSongId && !linkBroken) ? 'var(--spotify-green)' : 'var(--text-primary)'};">
                         ${(existingSongId && !linkBroken) ? '<i class="fas fa-link" style="font-size: 10px; margin-right: 5px;"></i>' : ''}${name}
-                    </div>
-                    <div style="color:#aaa; font-size:12px;">${durationStr} � ${type}</div>
-                    <div style="margin-top:4px;">${featsData.map(f => `<span style="font-size:11px; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px; margin-right:4px;">${f.type} ${f.name}</span>`).join('')}</div>
+                    </span>
+                    <span class="track-artist-feat">${artistText} • <span style="font-size:11px; opacity:0.7;">${type}</span></span>
                 </div>
-                <div class="track-actions" style="display:flex; gap:8px;">
-                    <button type="button" class="circle-btn edit-track-btn" style="width:24px;height:24px;font-size:12px;"><i class="fas fa-pencil-alt"></i></button>
-                    <button type="button" class="circle-btn remove-track-btn" style="width:24px;height:24px;font-size:12px;color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
+                <span class="track-duration" style="margin-right: 16px;">${durationStr}</span>
+                <div class="track-actions" style="display:flex; gap:12px;">
+                    <button type="button" class="small-btn edit-track-btn" style="border:none; padding:4px;"><i class="fas fa-pencil-alt"></i></button>
+                    <button type="button" class="small-btn remove-track-btn" style="border:none; padding:4px; color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
                 </div>
             `;
         } else {
             const newItem = document.createElement('div');
-            newItem.className = 'track-list-item-display';
-            newItem.style.cssText = 'display:flex; align-items:center; gap:16px; padding:8px; border-bottom:1px solid #2a2a2a;';
+            newItem.className = 'track-list-item-display track-row';
+            newItem.style.cssText = 'background: rgba(255,255,255,0.05); margin-bottom: 8px; border-radius: 4px; border: 1px solid transparent;';
             newItem.dataset.itemId = itemId;
             newItem.dataset.trackName = name;
             newItem.dataset.durationStr = durationStr;
@@ -3720,16 +3876,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             newItem.dataset.feats = featsJSON;
 
             newItem.innerHTML = `
-                <i class="fas fa-bars drag-handle" style="color:#555; cursor:grab;"></i>
-                <span class="track-number-display" style="color:#888; font-size:14px; width:20px; text-align:center;"></span>
-                <div style="flex-grow:1;">
-                    <div style="color:#fff; font-size:14px;">${name}</div>
-                    <div style="color:#aaa; font-size:12px;">${durationStr} � ${type}</div>
-                    <div style="margin-top:4px;">${featsData.map(f => `<span style="font-size:11px; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px; margin-right:4px;">${f.type} ${f.name}</span>`).join('')}</div>
+                <i class="fas fa-grip-vertical drag-handle" style="color:var(--text-secondary); cursor:grab; margin-right: 8px;"></i>
+                <span class="track-number track-number-display"></span>
+                <div class="track-info" style="flex-grow:1;">
+                    <span class="track-title" style="color:var(--text-primary);">${name}</span>
+                    <span class="track-artist-feat">${artistText} • <span style="font-size:11px; opacity:0.7;">${type}</span></span>
                 </div>
-                <div class="track-actions" style="display:flex; gap:8px;">
-                    <button type="button" class="circle-btn edit-track-btn" style="width:24px;height:24px;font-size:12px;"><i class="fas fa-pencil-alt"></i></button>
-                    <button type="button" class="circle-btn remove-track-btn" style="width:24px;height:24px;font-size:12px;color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
+                <span class="track-duration" style="margin-right: 16px;">${durationStr}</span>
+                <div class="track-actions" style="display:flex; gap:12px;">
+                    <button type="button" class="small-btn edit-track-btn" style="border:none; padding:4px;"><i class="fas fa-pencil-alt"></i></button>
+                    <button type="button" class="small-btn remove-track-btn" style="border:none; padding:4px; color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
                 </div>`;
 
             const emptyState = activeTracklistEditor.querySelector('p');
@@ -3749,7 +3905,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (trackItems.length === 0) {
             if (!editorElement.querySelector('p')) {
-                editorElement.innerHTML = '<p style="color: var(--text-subdued); text-align: center; font-size: 14px;">Nenhuma faixa adicionada.</p>';
+                editorElement.innerHTML = '<p style="color: var(--text-subdued); text-align: center; font-size: 14px; margin-top: 24px;">Nenhuma faixa adicionada.</p>';
             }
         } else {
             const emptyState = editorElement.querySelector('p');
@@ -3766,87 +3922,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    function populatePlayerTracks(selectElementId) {
-        const selectElement = document.getElementById(selectElementId);
-        if (!selectElement) return;
-
-        const selectedArtistId = singleArtistSelect?.value;
-
-        if (!currentPlayer) {
-            selectElement.innerHTML = '<option value="">Fa�a login primeiro</option>';
-            selectElement.disabled = true;
-            return;
-        }
-        if (!selectedArtistId) {
-            selectElement.innerHTML = '<option value="">Selecione um Artista primeiro</option>';
-            selectElement.disabled = true;
-            return;
-        }
-
-        const artistSongs = db.songs
-            .filter(song => song.artistIds && song.artistIds.includes(selectedArtistId))
-            .sort((a, b) => (b.totalStreams || 0) - (a.totalStreams || 0));
-
-        if (artistSongs.length === 0) {
-            selectElement.innerHTML = '<option value="">Nenhuma faixa encontrada para este artista</option>';
-            selectElement.disabled = true;
-        } else {
-            selectElement.innerHTML = '<option value="">Selecione uma faixa existente...</option>';
-            selectElement.innerHTML += artistSongs.map(song => {
-                const primaryReleaseId = song.albumId;
-                let releaseName = '(Avulsa)';
-                if (primaryReleaseId) {
-                    const release = [...db.albums, ...db.singles].find(r => r.id === primaryReleaseId);
-                    if (release) releaseName = `(${release.title})`;
-                }
-                return `<option value="${song.id}">${song.title} ${releaseName}</option>`;
-            }).join('');
-            selectElement.disabled = false;
-        }
-    }
-
-    function toggleSingleFormMode(isResetting = false) {
-        if (!toggleExistingSingle || !newTrackInfoGroup || !existingTrackGroup || !singleFeatSection || !existingTrackSelect) return;
-
-        const useExisting = isResetting ? false : toggleExistingSingle.checked;
-
-        if (useExisting) {
-            newTrackInfoGroup.classList.add('hidden');
-            existingTrackGroup.classList.remove('hidden');
-            singleFeatSection.classList.add('hidden');
-
-            document.getElementById('trackName')?.removeAttribute('required');
-            document.getElementById('trackDuration')?.removeAttribute('required');
-            existingTrackSelect.setAttribute('required', 'required');
-
-             if (existingTrackSelect.options.length <= 1 || existingTrackSelect.options[0]?.value === "") {
-                  populatePlayerTracks('existingTrackSelect');
-             }
-        } else {
-            newTrackInfoGroup.classList.remove('hidden');
-            existingTrackGroup.classList.add('hidden');
-            singleFeatSection.classList.remove('hidden');
-
-            document.getElementById('trackName')?.setAttribute('required', 'required');
-            document.getElementById('trackDuration')?.setAttribute('required', 'required');
-            existingTrackSelect.removeAttribute('required');
-        }
-
-        if (isResetting) {
-            toggleExistingSingle.checked = false;
-            existingTrackSelect.value = '';
-            if(existingSingleTrackId) existingSingleTrackId.value = '';
-            if(document.getElementById('trackName')) document.getElementById('trackName').value = '';
-            if(document.getElementById('trackDuration')) document.getElementById('trackDuration').value = '';
-            if(document.getElementById('singleFeatList')) document.getElementById('singleFeatList').innerHTML = '';
-        }
-    }
-
     function openExistingTrackModal(context) { 
-        if (!currentPlayer) { alert("Fa�a login"); return; }
+        if (!currentPlayer) { alert("Faça login"); return; }
         let activeArtistId = null;
-        if(activeTracklistEditor === albumTracklistEditor){
-            activeArtistId = albumArtistSelect?.value;
+        if(activeTracklistEditor === wysiwygTracklistEditor){
+            activeArtistId = wysiwygArtistSelect?.value;
         } else if (activeTracklistEditor === editAlbumTracklistEditor){
              const artistDisplay = document.getElementById('editArtistNameDisplay');
              const artistName = artistDisplay?.textContent;
@@ -3854,7 +3934,7 @@ document.addEventListener('DOMContentLoaded', async () => {
              activeArtistId = artist ? artist.id : null;
         }
 
-         if (!activeArtistId) { alert("Selecione o Artista Principal."); return; }
+         if (!activeArtistId) { alert("Selecione o Artista Principal na capa do lançamento."); return; }
 
         existingTrackModalContext = context;
         if(existingTrackSearch) existingTrackSearch.value = '';
@@ -3873,8 +3953,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!currentPlayer) return;
 
         let selectedArtistId = null;
-        if(activeTracklistEditor === albumTracklistEditor){
-            selectedArtistId = albumArtistSelect?.value;
+        if(activeTracklistEditor === wysiwygTracklistEditor){
+            selectedArtistId = wysiwygArtistSelect?.value;
         } else if (activeTracklistEditor === editAlbumTracklistEditor){
              const artistDisplay = document.getElementById('editArtistNameDisplay');
              const artistName = artistDisplay?.textContent;
@@ -3927,7 +4007,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!song || !activeTracklistEditor) return;
 
         if (activeTracklistEditor.querySelector(`[data-existing-song-id="${song.id}"]`)) {
-            alert("Esta m�sica j� foi adicionada.");
+            alert("Esta música já foi adicionada.");
             return;
         }
 
@@ -3937,8 +4017,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         const newItem = document.createElement('div');
-        newItem.className = 'track-list-item-display';
-        newItem.style.cssText = 'display:flex; align-items:center; gap:16px; padding:8px; border-bottom:1px solid #2a2a2a;';
+        newItem.className = 'track-list-item-display track-row';
+        newItem.style.cssText = 'background: rgba(255,255,255,0.05); margin-bottom: 8px; border-radius: 4px;';
         newItem.dataset.itemId = `existing_${song.id}`;
         newItem.dataset.existingSongId = song.id;
         newItem.dataset.trackName = song.title.replace(/ \(feat\. .+\)$/i, '');
@@ -3946,19 +4026,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         newItem.dataset.trackType = song.trackType;
         newItem.dataset.feats = JSON.stringify(featsData);
 
+        let artistText = "Existente";
+        if (featsData.length > 0) {
+            if (featsData[0].type === "Dueto/Grupo") artistText = `Dueto com ${featsData.map(f=>f.name).join(', ')}`;
+            else artistText = `feat. ${featsData.map(f=>f.name).join(', ')}`;
+        }
+
         newItem.innerHTML = `
-            <i class="fas fa-bars drag-handle" style="color:#555; cursor:grab;"></i>
-            <span class="track-number-display" style="color:#888; font-size:14px; width:20px; text-align:center;"></span>
-            <div style="flex-grow:1;">
-                <div style="color:var(--spotify-green); font-size:14px;">
+            <i class="fas fa-grip-vertical drag-handle" style="color:var(--text-secondary); cursor:grab; margin-right: 8px;"></i>
+            <span class="track-number track-number-display"></span>
+            <div class="track-info" style="flex-grow:1;">
+                <span class="track-title" style="color:var(--spotify-green);">
                     <i class="fas fa-link" style="font-size: 10px; margin-right: 5px;"></i>${song.title}
-                </div>
-                <div style="color:#aaa; font-size:12px;">${song.duration} � ${song.trackType}</div>
-                <div style="margin-top:4px;">${featsData.map(f => `<span style="font-size:11px; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px; margin-right:4px;">${f.type} ${f.name}</span>`).join('')}</div>
+                </span>
+                <span class="track-artist-feat">${artistText} • <span style="font-size:11px; opacity:0.7;">${song.trackType}</span></span>
             </div>
-            <div class="track-actions" style="display:flex; gap:8px;">
-                <button type="button" class="circle-btn edit-track-btn" style="width:24px;height:24px;font-size:12px;"><i class="fas fa-pencil-alt"></i></button>
-                <button type="button" class="circle-btn remove-track-btn" style="width:24px;height:24px;font-size:12px;color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
+            <span class="track-duration" style="margin-right: 16px;">${song.duration}</span>
+            <div class="track-actions" style="display:flex; gap:12px;">
+                <button type="button" class="small-btn edit-track-btn" style="border:none; padding:4px;"><i class="fas fa-pencil-alt"></i></button>
+                <button type="button" class="small-btn remove-track-btn" style="border:none; padding:4px; color:var(--trend-down-red);"><i class="fas fa-times"></i></button>
             </div>
         `;
 
@@ -3971,150 +4057,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 
-    // --- FUN��ES DE SUBMISS�O ---
-     async function handleSingleSubmit(event) {
-          event.preventDefault();
-          const submitButton = document.getElementById('submitNewSingle');
-          if (!submitButton) return;
+    // --- FUNÇÕES DE SUBMISSÃO ---
+    function initAlbumForm() {
+         if (wysiwygTracklistEditor) wysiwygTracklistEditor.innerHTML = '<p style="color: var(--text-subdued); text-align: center; font-size: 14px; margin-top: 24px;">Nenhuma faixa adicionada.</p>';
+         if (wysiwygToggleDeluxe) wysiwygToggleDeluxe.checked = false; 
+         if (wysiwygTitle) wysiwygTitle.value = '';
+         if (wysiwygCoverUrl) wysiwygCoverUrl.value = 'https://i.imgur.com/AD3MbBi.png';
+         if (wysiwygCoverImg) wysiwygCoverImg.src = 'https://i.imgur.com/AD3MbBi.png';
+         if (wysiwygBg) wysiwygBg.style.backgroundImage = `url('https://i.imgur.com/AD3MbBi.png')`;
+         
+         const now = new Date();
+         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+         if (wysiwygReleaseDate) wysiwygReleaseDate.value = now.toISOString().slice(0, 16);
 
-          const isExisting = toggleExistingSingle?.checked;
-          const artistId = singleArtistSelect?.value;
-          const title = document.getElementById('singleTitle')?.value;
-          const coverUrl = document.getElementById('singleCoverUrl')?.value;
-          const releaseDateTimeLocal = singleReleaseDateInput?.value;
-
-          if (!artistId || !title || !coverUrl || !releaseDateTimeLocal) { alert("Preencha todos os campos."); return; }
-
-          if (isExisting) {
-               const existingSongId = existingTrackSelect?.value;
-               if (!existingSongId) { alert("Selecione uma faixa existente."); return; }
-               if(existingSingleTrackId) existingSingleTrackId.value = existingSongId;
-          } else {
-               const trackName = document.getElementById('trackName')?.value;
-               const trackDuration = document.getElementById('trackDuration')?.value;
-               if (!trackName || !trackDuration || parseDurationToSeconds(trackDuration) === 0) { alert("Preencha o nome e a dura��o."); return; }
-                 if(existingSingleTrackId) existingSingleTrackId.value = '';
-          }
-
-          submitButton.disabled = true;
-          submitButton.textContent = 'Aguardando Tipo...';
-          trackTypeModal?.classList.remove('hidden');
+         updateTrackNumbers(wysiwygTracklistEditor); 
      }
 
-     async function processSingleSubmission(trackType) {
-          const submitButton = document.getElementById('submitNewSingle');
-          trackTypeModal?.classList.add('hidden');
-          if (submitButton) submitButton.textContent = 'Enviando...';
-
-          try {
-               const artistId = singleArtistSelect.value;
-               const title = document.getElementById('singleTitle').value;
-               const coverUrl = document.getElementById('singleCoverUrl').value;
-               const releaseDateTimeLocal = singleReleaseDateInput.value;
-               const existingSongId = existingSingleTrackId.value;
-
-               const releaseDateISO = releaseDateTimeLocal.split('T')[0];
-                if (isNaN(new Date(releaseDateISO).getTime())) throw new Error("Data inv�lida.");
-
-               const singleRecordFields = { "Nome do Single/EP": title, "Artista": [artistId], "Capa": [{ "url": coverUrl }], "Data de Lan�amento": releaseDateISO };
-               const singleResponse = await createAirtableRecord('Singles e EPs', singleRecordFields);
-
-               if (!singleResponse || !singleResponse.id) throw new Error("Falha ao criar o registro.");
-               const newSingleId = singleResponse.id;
-
-               if (existingSongId) {
-                   const songData = db.songs.find(s => s.id === existingSongId);
-                   const existingSingleLinks = songData?.singleIds || [];
-                   const updatedSingleLinks = [...new Set([...existingSingleLinks, newSingleId])];
-
-                   const musicUpdateFields = { "Singles e EPs": updatedSingleLinks, "Tipo de Faixa": trackType };
-                   const musicUpdateResponse = await updateAirtableRecord('M�sicas', existingSongId, musicUpdateFields);
-                   if (!musicUpdateResponse || !musicUpdateResponse.id) {
-                        await deleteAirtableRecord('Singles e EPs', newSingleId); 
-                        throw new Error("Falha ao atualizar a m�sica existente.");
-                   }
-               } else {
-                   const trackName = document.getElementById('trackName').value;
-                   const trackDurationStr = document.getElementById('trackDuration').value;
-                   const trackDurationSec = parseDurationToSeconds(trackDurationStr);
-
-                   const featTags = document.querySelectorAll('#singleFeatList .feat-tag');
-                   let finalArtistIds = [artistId];
-                   let collaborationType = null;
-                   let finalTrackName = trackName;
-                   let featNames = [];
-
-                   if (featTags.length > 0) {
-                        collaborationType = featTags[0].dataset.featType;
-                        featTags.forEach(tag => { finalArtistIds.push(tag.dataset.artistId); featNames.push(tag.dataset.artistName); });
-                        if (collaborationType === "Feat.") finalTrackName = `${trackName} (feat. ${featNames.join(', ')})`;
-                   }
-
-                   const musicCreateFields = {
-                       "Nome da Faixa": finalTrackName, "Artista": finalArtistIds, "Dura��o": trackDurationSec, "N� da Faixa": 1,
-                       "Singles e EPs": [newSingleId], "Tipo de Faixa": trackType,
-                        ...(collaborationType && { "Tipo de Colabora��o": collaborationType })
-                   };
-
-                   const musicCreateResponse = await createAirtableRecord('M�sicas', musicCreateFields);
-                   if (!musicCreateResponse || !musicCreateResponse.id) {
-                        await deleteAirtableRecord('Singles e EPs', newSingleId); 
-                       throw new Error("Falha ao criar a nova m�sica.");
-                   }
-               }
-
-               alert("Single lan�ado com sucesso!");
-               newSingleForm?.reset();
-
-               if (singleReleaseDateInput) {
-                    const now = new Date();
-                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                    singleReleaseDateInput.value = now.toISOString().slice(0, 16);
-               }
-               if(document.getElementById('singleFeatList')) document.getElementById('singleFeatList').innerHTML = '';
-               toggleSingleFormMode(true);
-               await refreshAllData();
-
-          } catch (error) { alert(`Erro: ${error.message}`); } 
-          finally {
-               if (submitButton) { submitButton.disabled = false; submitButton.textContent = 'Lan�ar Single'; }
-                if(existingSingleTrackId) existingSingleTrackId.value = '';
-          }
-     }
-
-     function initAlbumForm() {
-         if (albumTracklistEditor) albumTracklistEditor.innerHTML = '<p style="color: var(--text-subdued); text-align: center; font-size: 14px;">Nenhuma faixa adicionada.</p>';
-         if (toggleDeluxe) toggleDeluxe.checked = false; 
-         updateTrackNumbers(albumTracklistEditor); 
-
-         if (albumTracklistEditor && typeof Sortable !== 'undefined') {
-             if (albumTracklistSortable) albumTracklistSortable.destroy();
-             albumTracklistSortable = Sortable.create(albumTracklistEditor, { animation: 150, handle: '.drag-handle', onEnd: () => updateTrackNumbers(albumTracklistEditor) });
-         } 
-     }
-
-     async function handleAlbumSubmit(event) {
+     async function handleWysiwygSubmit(event) {
          event.preventDefault();
-         const submitButton = document.getElementById('submitNewAlbum');
-         if (!submitButton) return;
+         if (!submitWysiwygRelease) return;
 
-         submitButton.disabled = true;
-         submitButton.textContent = 'Enviando...';
-         let isAlbum = false; 
+         submitWysiwygRelease.disabled = true;
+         submitWysiwygRelease.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
          try {
-             const artistId = albumArtistSelect?.value;
-             const title = document.getElementById('albumTitle')?.value;
-             const coverUrl = document.getElementById('albumCoverUrl')?.value;
-             const releaseDateTimeLocal = albumReleaseDateInput?.value;
+             const artistId = wysiwygArtistSelect?.value;
+             const title = document.getElementById('wysiwygTitle')?.value;
+             const coverUrl = document.getElementById('wysiwygCoverUrl')?.value;
+             const releaseDateTimeLocal = document.getElementById('wysiwygReleaseDate')?.value;
+             const releaseTypeSelected = document.getElementById('wysiwygReleaseType')?.value; 
 
-             if (!artistId || !title || !coverUrl || !releaseDateTimeLocal) throw new Error("Preencha todos os campos.");
+             if (!artistId || !title || !coverUrl || !releaseDateTimeLocal) throw new Error("Preencha todos os campos do cabeçalho.");
 
              const releaseDateISO = releaseDateTimeLocal.split('T')[0];
-              if (isNaN(new Date(releaseDateISO).getTime())) throw new Error("Data inv�lida.");
+              if (isNaN(new Date(releaseDateISO).getTime())) throw new Error("Data inválida.");
 
-             const trackItems = albumTracklistEditor?.querySelectorAll('.track-list-item-display');
-             if (!trackItems || trackItems.length === 0) throw new Error("Adicione pelo menos uma faixa.");
+             const trackItems = wysiwygTracklistEditor?.querySelectorAll('.track-list-item-display');
+             if (!trackItems || trackItems.length === 0) throw new Error("Adicione pelo menos uma faixa para lançar o projeto.");
 
              let totalDurationSeconds = 0;
              const musicRecordsToCreate = [];
@@ -4130,11 +4109,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                  if (!existingSongId) { try { feats = JSON.parse(item.dataset.feats || '[]'); } catch (e) {} }
                  const durationSec = parseDurationToSeconds(durationStr);
 
-                 if (!name || !durationStr || durationSec === 0) throw new Error(`Dados inv�lidos na Faixa ${i + 1}.`);
+                 if (!name || !durationStr || durationSec === 0) throw new Error(`Dados inválidos na Faixa ${i + 1}.`);
                  totalDurationSeconds += durationSec;
 
                  if (existingSongId) {
-                     musicRecordsToUpdate.push({ id: existingSongId, fields: { "N� da Faixa": i + 1, "Tipo de Faixa": type } });
+                     musicRecordsToUpdate.push({ id: existingSongId, fields: { "Nº da Faixa": i + 1, "Tipo de Faixa": type } });
                  } else {
                      let finalTrackName = name;
                      let finalArtistIds = [artistId];
@@ -4145,22 +4124,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                          if (collaborationType === "Feat.") finalTrackName = `${name} (feat. ${feats.map(f => f.name).join(', ')})`;
                      }
                      musicRecordsToCreate.push({
-                         "Nome da Faixa": finalTrackName, "Artista": finalArtistIds, "Dura��o": durationSec, "N� da Faixa": i + 1, "Tipo de Faixa": type,
-                          ...(collaborationType && { "Tipo de Colabora��o": collaborationType })
+                         "Nome da Faixa": finalTrackName, "Artista": finalArtistIds, "Duração": durationSec, "Nº da Faixa": i + 1, "Tipo de Faixa": type,
+                          ...(collaborationType && { "Tipo de Colaboração": collaborationType })
                      });
                  }
              }
 
-             const IS_ALBUM_THRESHOLD_SECONDS = 30 * 60;
-             isAlbum = totalDurationSeconds >= IS_ALBUM_THRESHOLD_SECONDS; 
-             const targetTableName = isAlbum ? '�lbuns' : 'Singles e EPs';
-             const nameFieldName = isAlbum ? 'Nome do �lbum' : 'Nome do Single/EP';
-             const coverFieldName = isAlbum ? 'Capa do �lbum' : 'Capa';
-             const linkFieldName = isAlbum ? '�lbuns' : 'Singles e EPs';
-             const isDeluxe = document.getElementById('toggleDeluxe')?.checked;
+             let isAlbum = releaseTypeSelected === 'album'; 
 
-             const releaseRecordFields = { [nameFieldName]: title, "Artista": [artistId], [coverFieldName]: [{ "url": coverUrl }], "Data de Lan�amento": releaseDateISO };
-             if (isDeluxe) releaseRecordFields["� deluxe?"] = true;
+             if (!isAlbum) {
+                 if (totalDurationSeconds > 1800) throw new Error("Singles e EPs não podem ultrapassar 30 minutos de duração. Altere o tipo do lançamento para 'Álbuns'.");
+                 if (trackItems.length > 6) throw new Error("Singles e EPs não podem ter mais que 6 faixas. Altere o tipo do lançamento para 'Álbuns'.");
+             }
+             
+             const targetTableName = isAlbum ? 'Álbuns' : 'Singles e EPs';
+             const nameFieldName = isAlbum ? 'Nome do Álbum' : 'Nome do Single/EP';
+             const coverFieldName = isAlbum ? 'Capa do Álbum' : 'Capa';
+             const linkFieldName = isAlbum ? 'Álbuns' : 'Singles e EPs';
+             const isDeluxe = wysiwygToggleDeluxe?.checked;
+
+             const releaseRecordFields = { [nameFieldName]: title, "Artista": [artistId], [coverFieldName]: [{ "url": coverUrl }], "Data de Lançamento": releaseDateISO };
+             if (isDeluxe) releaseRecordFields["É deluxe?"] = true;
              
              const releaseResponse = await createAirtableRecord(targetTableName, releaseRecordFields);
 
@@ -4176,36 +4160,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
              let allMusicOpsSucceeded = true;
              if (musicRecordsToCreate.length > 0) {
-                 const createdMusicResult = await batchCreateAirtableRecords('M�sicas', musicRecordsToCreate);
+                 const createdMusicResult = await batchCreateAirtableRecords('Músicas', musicRecordsToCreate);
                  if (!createdMusicResult || createdMusicResult.length !== musicRecordsToCreate.length) allMusicOpsSucceeded = false;
              }
              if (musicRecordsToUpdate.length > 0) {
-                 const updatedMusicResult = await batchUpdateAirtableRecords('M�sicas', musicRecordsToUpdate);
+                 const updatedMusicResult = await batchUpdateAirtableRecords('Músicas', musicRecordsToUpdate);
                  if (!updatedMusicResult || updatedMusicResult.length !== musicRecordsToUpdate.length) allMusicOpsSucceeded = false;
              }
 
-             if (!allMusicOpsSucceeded) alert(`Projeto lan�ado, mas ocorreu um erro em algumas faixas.`);
-             else alert(`Projeto lan�ado com sucesso!`);
+             if (!allMusicOpsSucceeded) alert(`Projeto lançado, mas ocorreu um erro em algumas faixas.`);
+             else alert(`Projeto ${isAlbum ? 'Álbum' : 'Single'} lançado com sucesso!`);
 
-             newAlbumForm?.reset();
-             if (albumReleaseDateInput) {
-                 const now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                 albumReleaseDateInput.value = now.toISOString().slice(0, 16);
-             }
              initAlbumForm();
              await refreshAllData();
 
          } catch (error) { alert(`Erro: ${error.message}`); } 
          finally {
-             submitButton.disabled = false;
-             submitButton.textContent = `Lan�ar Projeto`;
+             submitWysiwygRelease.disabled = false;
+             submitWysiwygRelease.innerHTML = `<i class="fas fa-check"></i> Lançar Projeto`;
          }
      }
 
-    // --- FUN��ES DE EDI��O/EXCLUS�O ---
+    // --- FUNÇÕES DE EDIÇÃO/EXCLUSÃO ---
     function populateEditableReleases() {
         if (!editReleaseList) return;
-        if (!currentPlayer) { editReleaseList.innerHTML = '<p class="empty-state-small">Fa�a login</p>'; return; }
+        if (!currentPlayer) { editReleaseList.innerHTML = '<p class="empty-state-small">Faça login</p>'; return; }
 
         const selectedArtistId = editArtistFilterSelect?.value;
         const playerArtistIds = currentPlayer.artists || [];
@@ -4214,7 +4193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const sortedReleases = releasesToDisplay.sort((a, b) => new Date(b.releaseDate||0) - new Date(a.releaseDate||0));
 
         if (sortedReleases.length === 0) {
-            editReleaseList.innerHTML = '<p class="empty-state-small">Nenhum lan�amento.</p>';
+            editReleaseList.innerHTML = '<p class="empty-state-small">Nenhum lançamento.</p>';
         } else {
             editReleaseList.innerHTML = sortedReleases.map(release => `
                 <div class="edit-release-item" style="display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.05); padding:12px; border-radius:4px;">
@@ -4223,7 +4202,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <span style="display:block; font-weight:600; color:#fff;">${release.title}</span>
                          <span style="display:block; font-size:12px; color:#aaa;">
                               ${release.artist} - ${release.releaseDate ? new Date(release.releaseDate).getFullYear() : 'Sem Data'}
-                              (${release.type === 'album' ? '�lbum' : 'Single/EP'})
+                              (${release.type === 'album' ? 'Álbum' : 'Single/EP'})
                          </span>
                     </div>
                     <div style="display:flex; gap:8px;">
@@ -4245,6 +4224,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         editArtistNameDisplay.textContent = release.artist;
         editReleaseTitle.value = release.title;
         editReleaseCoverUrl.value = release.imageUrl;
+        document.getElementById('editWysiwygCoverImg').src = release.imageUrl;
+        document.getElementById('editWysiwygBg').style.backgroundImage = `url('${release.imageUrl}')`;
+        
+        const artistObj = db.artists.find(a => a.id === release.artistId);
+        if(artistObj) {
+            document.getElementById('editWysiwygArtistImg').src = artistObj.img;
+        }
 
         if (release.releaseDate) {
             try {
@@ -4256,10 +4242,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (editAlbumTracklistEditor && editTracklistActions) {
             populateTracklistEditor(editAlbumTracklistEditor, release.tracks);
-             if (typeof Sortable !== 'undefined') {
-                 if (editAlbumTracklistSortable) editAlbumTracklistSortable.destroy();
-                 editAlbumTracklistSortable = Sortable.create(editAlbumTracklistEditor, { animation: 150, handle: '.drag-handle', onEnd: () => updateTrackNumbers(editAlbumTracklistEditor) });
-             }
         }
 
         editReleaseListContainer?.classList.add('hidden');
@@ -4284,19 +4266,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         let updatedReleaseDateISO;
         try {
             updatedReleaseDateISO = new Date(updatedReleaseDateTimeLocal).toISOString().split('T')[0];
-            if (isNaN(new Date(updatedReleaseDateISO).getTime())) throw new Error("Data inv�lida.");
-        } catch (e) { alert("Data inv�lida."); return; }
+            if (isNaN(new Date(updatedReleaseDateISO).getTime())) throw new Error("Data inválida.");
+        } catch (e) { alert("Data inválida."); return; }
 
-        saveEditBtn.disabled = true; saveEditBtn.textContent = 'Salvando...';
+        saveEditBtn.disabled = true; saveEditBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
         try {
-            const titleFieldName = (tableName === '�lbuns') ? 'Nome do �lbum' : 'Nome do Single/EP';
-            const coverFieldName = (tableName === '�lbuns') ? 'Capa do �lbum' : 'Capa';
-            const fieldsToUpdate = { [titleFieldName]: updatedTitle, [coverFieldName]: [{ "url": updatedCoverUrl }], "Data de Lan�amento": updatedReleaseDateISO };
+            const titleFieldName = (tableName === 'Álbuns') ? 'Nome do Álbum' : 'Nome do Single/EP';
+            const coverFieldName = (tableName === 'Álbuns') ? 'Capa do Álbum' : 'Capa';
+            const fieldsToUpdate = { [titleFieldName]: updatedTitle, [coverFieldName]: [{ "url": updatedCoverUrl }], "Data de Lançamento": updatedReleaseDateISO };
             const updateResult = await updateAirtableRecord(tableName, recordId, fieldsToUpdate);
             if (!updateResult || !updateResult.id) throw new Error("Falha ao atualizar o registro principal.");
 
-            if (tableName === '�lbuns' || tableName === 'Singles e EPs') { 
+            if (tableName === 'Álbuns' || tableName === 'Singles e EPs') { 
                 const trackItems = editAlbumTracklistEditor.querySelectorAll('.track-list-item-display');
                 
                 if (!editAlbumTracklistEditor.classList.contains('hidden')) { 
@@ -4314,17 +4296,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         let feats = [];
                         try { feats = JSON.parse(item.dataset.feats || '[]'); } catch (e) {}
 
-                        if (!name || (durationSec === 0 && !existingSongId) ) throw new Error(`Dados inv�lidos na Faixa ${i + 1}.`);
+                        if (!name || (durationSec === 0 && !existingSongId) ) throw new Error(`Dados inválidos na Faixa ${i + 1}.`);
 
-                        const linkField = tableName === '�lbuns' ? '�lbuns' : 'Singles e EPs';
+                        const linkField = tableName === 'Álbuns' ? 'Álbuns' : 'Singles e EPs';
 
                         if (existingSongId) {
                             finalTrackIdsInEditor.add(existingSongId);
                             const originalSong = db.songs.find(s => s.id === existingSongId);
-                            const existingLinks = (tableName === '�lbuns' ? originalSong?.albumIds : originalSong?.singleIds) || [];
+                            const existingLinks = (tableName === 'Álbuns' ? originalSong?.albumIds : originalSong?.singleIds) || [];
                             const updatedLinks = [...new Set([...existingLinks, recordId])];
 
-                            musicRecordsToUpdate.push({ id: existingSongId, fields: { "N� da Faixa": i + 1, "Tipo de Faixa": type, [linkField]: updatedLinks } });
+                            musicRecordsToUpdate.push({ id: existingSongId, fields: { "Nº da Faixa": i + 1, "Tipo de Faixa": type, [linkField]: updatedLinks } });
                         } else {
                             let finalTrackName = name;
                             let finalArtistIds = [artistId];
@@ -4335,12 +4317,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 finalArtistIds = [artistId, ...feats.map(f => f.id)];
                                 if (collaborationType === "Feat.") finalTrackName = `${name} (feat. ${feats.map(f => f.name).join(', ')})`;
                             }
-                            musicRecordsToCreate.push({ "Nome da Faixa": finalTrackName, "Artista": finalArtistIds, "Dura��o": durationSec, "N� da Faixa": i + 1, "Tipo de Faixa": type, [linkField]: [recordId], ...(collaborationType && { "Tipo de Colabora��o": collaborationType }) });
+                            musicRecordsToCreate.push({ "Nome da Faixa": finalTrackName, "Artista": finalArtistIds, "Duração": durationSec, "Nº da Faixa": i + 1, "Tipo de Faixa": type, [linkField]: [recordId], ...(collaborationType && { "Tipo de Colaboração": collaborationType }) });
                         }
                     } 
 
                     if (musicRecordsToCreate.length > 0) {
-                        const createResult = await batchCreateAirtableRecords('M�sicas', musicRecordsToCreate.map(fields => fields));
+                        const createResult = await batchCreateAirtableRecords('Músicas', musicRecordsToCreate.map(fields => fields));
                         if (!createResult || createResult.length !== musicRecordsToCreate.length) throw new Error("Falha ao criar faixas novas.");
                         createResult.forEach(record => finalTrackIdsInEditor.add(record.id));
                     }
@@ -4348,18 +4330,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const tracksToUnlinkIds = [...originalTrackIds].filter(id => !finalTrackIdsInEditor.has(id));
                     if (tracksToUnlinkIds.length > 0) {
                         const unlinkPayload = [];
-                        const linkField = tableName === '�lbuns' ? '�lbuns' : 'Singles e EPs';
+                        const linkField = tableName === 'Álbuns' ? 'Álbuns' : 'Singles e EPs';
                         for (const trackId of tracksToUnlinkIds) {
                             const originalSong = db.songs.find(s => s.id === trackId);
-                            const existingLinks = (tableName === '�lbuns' ? originalSong?.albumIds : originalSong?.singleIds) || [];
+                            const existingLinks = (tableName === 'Álbuns' ? originalSong?.albumIds : originalSong?.singleIds) || [];
                             const updatedLinks = existingLinks.filter(linkId => linkId !== recordId); 
                             unlinkPayload.push({ id: trackId, fields: { [linkField]: updatedLinks } });
                         }
-                        await batchUpdateAirtableRecords('M�sicas', unlinkPayload);
+                        await batchUpdateAirtableRecords('Músicas', unlinkPayload);
                     }
                     
                     if (musicRecordsToUpdate.length > 0) {
-                        const updateExistingResult = await batchUpdateAirtableRecords('M�sicas', musicRecordsToUpdate);
+                        const updateExistingResult = await batchUpdateAirtableRecords('Músicas', musicRecordsToUpdate);
                         if (!updateExistingResult || updateExistingResult.length !== musicRecordsToUpdate.length) throw new Error("Falha ao atualizar faixas existentes.");
                     }
                 } 
@@ -4371,7 +4353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             await refreshAllData();
 
         } catch (error) { alert(`Erro: ${error.message}`); } 
-        finally { saveEditBtn.disabled = false; saveEditBtn.textContent = 'Salvar'; }
+        finally { saveEditBtn.disabled = false; saveEditBtn.innerHTML = '<i class="fas fa-save"></i> Salvar'; }
     }
 
 
@@ -4407,29 +4389,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (!song) continue;
                     const totalLinks = (song.albumIds || []).length + (song.singleIds || []).length;
                     if (totalLinks > 1) {
-                        const isAlbumTable = tableName === '�lbuns';
-                        const linkField = isAlbumTable ? '�lbuns' : 'Singles e EPs';
+                        const isAlbumTable = tableName === 'Álbuns';
+                        const linkField = isAlbumTable ? 'Álbuns' : 'Singles e EPs';
                         const currentLinks = (isAlbumTable ? song.albumIds : song.singleIds) || [];
                         updates.push({ id: trackId, fields: { [linkField]: currentLinks.filter(linkId => linkId !== recordId) } });
                     } else { deletes.push(trackId); }
                 }
-                if (updates.length > 0) await batchUpdateAirtableRecords('M�sicas', updates);
-                if (deletes.length > 0) await batchDeleteAirtableRecords('M�sicas', deletes);
+                if (updates.length > 0) await batchUpdateAirtableRecords('Músicas', updates);
+                if (deletes.length > 0) await batchDeleteAirtableRecords('Músicas', deletes);
             }
 
             const releaseDeleteResult = await deleteAirtableRecord(tableName, recordId);
             if (releaseDeleteResult && releaseDeleteResult.deleted) {
-                alert("Lan�amento apagado!");
+                alert("Lançamento apagado!");
                 closeDeleteConfirmModal();
                 await refreshAllData();
-            } else { throw new Error("Falha na exclus�o."); }
+            } else { throw new Error("Falha na exclusão."); }
 
         } catch (error) { alert(`Erro: ${error.message}`); closeDeleteConfirmModal(); } 
         finally { confirmDeleteBtn.disabled = false; confirmDeleteBtn.textContent = 'Apagar'; }
     }
 
 
-    // --- 5. L�GICA DO PLAYER DE M�SICA ---
+    // --- 5. LÓGICA DO PLAYER DE MÚSICA ---
     function openPlayer(songId, clickedElement) {
        const song = db.songs.find(s => s.id === songId);
        if (!song) return;
@@ -4447,31 +4429,50 @@ document.addEventListener('DOMContentLoaded', async () => {
        if (currentQueueIndex === -1) { currentQueue = [song]; currentQueueIndex = 0; }
 
        loadSong(song);
-       musicPlayerView?.classList.remove('hidden');
-       document.body.classList.add('player-open');
+       maximizePlayer(); // Substitui as antigas chamadas
        playAudio();
     }
 
     function closePlayer() {
         musicPlayerView?.classList.add('hidden');
         document.body.classList.remove('player-open');
-        if (isPlaying) pauseAudio();
+        // Ao fechar o player grande, mostramos o mini player se houver música
+        if (currentSong) {
+            miniPlayer?.classList.remove('hidden');
+        }
+    }
+
+    function maximizePlayer() {
+        miniPlayer?.classList.add('hidden');
+        musicPlayerView?.classList.remove('hidden');
+        document.body.classList.add('player-open');
     }
 
     function loadSong(song) {
         if (!song) return;
         currentSong = song;
 
+        // Remove a classe 'playing' de todas as faixas para limpar seleções antigas
+        document.querySelectorAll('.song-row.playing, .track-row.playing, .chart-item.playing').forEach(el => el.classList.remove('playing'));
+        // Adiciona a classe 'playing' na música que está sendo reproduzida agora
+        document.querySelectorAll(`[data-song-id="${song.id}"]`).forEach(el => el.classList.add('playing'));
+
+        const artistNameStr = formatArtistString(song.artistIds, song.collabType);
+
         if (playerSongTitle) playerSongTitle.textContent = song.title;
-        if (playerArtistName) playerArtistName.textContent = formatArtistString(song.artistIds, song.collabType);
+        if (playerArtistName) playerArtistName.textContent = artistNameStr;
+        if (miniPlayerTitle) miniPlayerTitle.textContent = song.title;
+        if (miniPlayerArtist) miniPlayerArtist.textContent = artistNameStr;
 
         const parentRelease = [...db.albums, ...db.singles].find(r => r.id === song.albumId);
         if (parentRelease) {
             if (playerCoverArt) playerCoverArt.src = parentRelease.imageUrl;
             if (playerAlbumTitle) playerAlbumTitle.textContent = parentRelease.title;
+            if (miniPlayerCover) miniPlayerCover.src = parentRelease.imageUrl;
         } else {
             if (playerCoverArt) playerCoverArt.src = 'https://i.imgur.com/AD3MbBi.png';
             if (playerAlbumTitle) playerAlbumTitle.textContent = 'Single Avulso';
+            if (miniPlayerCover) miniPlayerCover.src = 'https://i.imgur.com/AD3MbBi.png';
         }
 
         const durationSeconds = song.durationSeconds || 180;
@@ -4479,23 +4480,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (playerSeekBar) { playerSeekBar.value = 0; playerSeekBar.max = durationSeconds; }
         if (playerCurrentTime) playerCurrentTime.textContent = formatTime(0);
         if (playerTotalTime) playerTotalTime.textContent = formatTime(durationSeconds);
+        if (miniPlayerProgress) { miniPlayerProgress.style.width = '0%'; miniPlayerProgress.dataset.max = durationSeconds; }
 
-        if (isPlaying) { if(playerPlayPauseBtn) playerPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; } 
-        else { if(playerPlayPauseBtn) playerPlayPauseBtn.innerHTML = '<i class="fas fa-play" style="margin-left:2px;"></i>'; }
+        if (isPlaying) { 
+            if(playerPlayPauseBtn) playerPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; 
+            if(miniPlayerPlayPauseBtn) miniPlayerPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } 
+        else { 
+            if(playerPlayPauseBtn) playerPlayPauseBtn.innerHTML = '<i class="fas fa-play" style="margin-left:2px;"></i>'; 
+            if(miniPlayerPlayPauseBtn) miniPlayerPlayPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
     }
 
     function playAudio() {
         if (!currentSong) return;
         isPlaying = true;
         if (playerPlayPauseBtn) playerPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        if (miniPlayerPlayPauseBtn) miniPlayerPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
     }
 
     function pauseAudio() {
         isPlaying = false;
         if (playerPlayPauseBtn) playerPlayPauseBtn.innerHTML = '<i class="fas fa-play" style="margin-left:2px;"></i>';
+        if (miniPlayerPlayPauseBtn) miniPlayerPlayPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
     }
 
-    function togglePlay() { if (isPlaying) pauseAudio(); else playAudio(); }
+    function togglePlay(e) { 
+        if (e) e.stopPropagation();
+        if (isPlaying) pauseAudio(); else playAudio(); 
+    }
 
     function playNext() {
         if (!currentQueue || currentQueue.length === 0 || !currentSong) return;
@@ -4503,6 +4516,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (repeatMode === 'one') {
             if (playerSeekBar) playerSeekBar.value = 0;
             if (playerCurrentTime) playerCurrentTime.textContent = formatTime(0);
+            if (miniPlayerProgress) miniPlayerProgress.style.width = '0%';
             playAudio();
             return;
         }
@@ -4525,6 +4539,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 pauseAudio();
                 if(playerSeekBar) playerSeekBar.value = playerSeekBar.max;
                 if(playerCurrentTime) playerCurrentTime.textContent = formatTime(playerSeekBar.max || 0);
+                if(miniPlayerProgress) miniPlayerProgress.style.width = '100%';
                 return;
             }
         }
@@ -4541,6 +4556,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentTime > 3) {
             if (playerSeekBar) playerSeekBar.value = 0;
             if (playerCurrentTime) playerCurrentTime.textContent = formatTime(0);
+            if (miniPlayerProgress) miniPlayerProgress.style.width = '0%';
              if(isPlaying) playAudio();
             return;
         }
@@ -4560,6 +4576,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentQueueIndex = 0;
                 if (playerSeekBar) playerSeekBar.value = 0;
                 if (playerCurrentTime) playerCurrentTime.textContent = formatTime(0);
+                if (miniPlayerProgress) miniPlayerProgress.style.width = '0%';
                 const firstSong = currentQueue[currentQueueIndex];
                 if (firstSong) { loadSong(firstSong); if(isPlaying) playAudio(); else pauseAudio(); }
                 return;
@@ -4586,13 +4603,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function formatTime(totalSeconds) {
-        if (isNaN(totalSeconds) || totalSeconds < 0) return "0:00";
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = Math.floor(totalSeconds % 60);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    }
-
     // --- Simulation Timer ---
     let simulationInterval = null;
 
@@ -4607,10 +4617,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     currentValue += 1;
                     playerSeekBar.value = currentValue;
                     if (playerCurrentTime) playerCurrentTime.textContent = formatTime(currentValue);
+                    if (miniPlayerProgress) miniPlayerProgress.style.width = `${(currentValue / maxValue) * 100}%`;
                 } else {
                     if (repeatMode === 'one') {
                         playerSeekBar.value = 0;
                         if (playerCurrentTime) playerCurrentTime.textContent = formatTime(0);
+                        if (miniPlayerProgress) miniPlayerProgress.style.width = '0%';
                          playAudio();
                     } else { playNext(); }
                 }
@@ -4628,14 +4640,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         playerSeekBar?.addEventListener('input', () => {
             if (playerCurrentTime && playerSeekBar) playerCurrentTime.textContent = formatTime(playerSeekBar.value);
+            if (miniPlayerProgress) miniPlayerProgress.style.width = `${(playerSeekBar.value / playerSeekBar.max) * 100}%`;
         });
         playerSeekBar?.addEventListener('change', () => { if (isPlaying) playAudio(); });
+
+        miniPlayer?.addEventListener('click', maximizePlayer);
+        miniPlayerPlayPauseBtn?.addEventListener('click', togglePlay);
 
         startSimulationTimer();
     }
 
 
-    // --- 6. INICIALIZA��O GERAL ---
+    // --- 6. INICIALIZAÇÃO GERAL ---
    function initializeBodyClickListener() {
         document.body.addEventListener('click', (event) => {
             const backButton = event.target.closest('[data-action="back"]');
@@ -4723,19 +4739,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     main().catch(err => {});
 
-// --- L�GICA DELUXE INTEGRADA ---
+    // --- LÓGICA DELUXE INTEGRADA ---
     const selectOriginalAlbumModal = document.getElementById('selectOriginalAlbumModal');
     const originalAlbumSelect = document.getElementById('originalAlbumSelect');
     const confirmImportBtn = document.getElementById('confirmImportBtn');
     const cancelImportBtn = document.getElementById('cancelImportBtn');
     
     function openImportDeluxeModal() {
-        const albumArtistSelect = document.getElementById('albumArtistSelect');
+        const albumArtistSelect = document.getElementById('wysiwygArtistSelect'); 
         const artistId = albumArtistSelect?.value;
-        if (!artistId) { alert("Selecione o Artista Principal primeiro."); if (toggleDeluxe) toggleDeluxe.checked = false; return; }
+        if (!artistId) { alert("Selecione o Artista Principal na capa do lançamento."); if (wysiwygToggleDeluxe) wysiwygToggleDeluxe.checked = false; return; }
 
         const artistAlbums = db.albums.filter(a => a.artistId === artistId);
-        if (artistAlbums.length === 0) { alert("Nenhum �lbum anterior encontrado."); if (toggleDeluxe) toggleDeluxe.checked = false; return; }
+        if (artistAlbums.length === 0) { alert("Nenhum álbum anterior encontrado."); if (wysiwygToggleDeluxe) wysiwygToggleDeluxe.checked = false; return; }
 
         originalAlbumSelect.innerHTML = artistAlbums.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)).map(album => `<option value="${album.id}">${album.title}</option>`).join('');
         selectOriginalAlbumModal.classList.remove('hidden');
@@ -4743,8 +4759,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function handleImportDeluxeTracks() {
         const albumIdToImport = originalAlbumSelect.value;
-        const albumTracklistEditor = document.getElementById('albumTracklistEditor');
-        const albumTitle = document.getElementById('albumTitle'); 
+        const albumTracklistEditor = document.getElementById('wysiwygTracklistEditor'); 
+        const albumTitle = document.getElementById('wysiwygTitle'); 
 
         if (!albumIdToImport) return;
         const album = db.albums.find(a => a.id === albumIdToImport);
@@ -4755,16 +4771,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         selectOriginalAlbumModal.classList.add('hidden');
     }
 
-    toggleDeluxe?.addEventListener('change', () => { if (toggleDeluxe.checked) openImportDeluxeModal(); });
+    wysiwygToggleDeluxe?.addEventListener('change', () => { if (wysiwygToggleDeluxe.checked) openImportDeluxeModal(); }); 
     confirmImportBtn?.addEventListener('click', handleImportDeluxeTracks);
-    cancelImportBtn?.addEventListener('click', () => { selectOriginalAlbumModal.classList.add('hidden'); if (toggleDeluxe) toggleDeluxe.checked = false; });
+    cancelImportBtn?.addEventListener('click', () => { selectOriginalAlbumModal.classList.add('hidden'); if (wysiwygToggleDeluxe) wysiwygToggleDeluxe.checked = false; }); 
 
-    const albumArtistSelectEv = document.getElementById('albumArtistSelect');
+    const albumArtistSelectEv = document.getElementById('wysiwygArtistSelect'); 
     if (albumArtistSelectEv) {
         albumArtistSelectEv.addEventListener('change', () => {
-            if (toggleDeluxe && toggleDeluxe.checked) {
-                toggleDeluxe.checked = false;
-                const albumTracklistEditor = document.getElementById('albumTracklistEditor');
+            if (wysiwygToggleDeluxe && wysiwygToggleDeluxe.checked) { 
+                wysiwygToggleDeluxe.checked = false; 
+                const albumTracklistEditor = document.getElementById('wysiwygTracklistEditor'); 
                 if(albumTracklistEditor) populateTracklistEditor(albumTracklistEditor, []);
             }
         });
@@ -4772,5 +4788,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 });
 </script>
-
-</body></html>
+</body>
+</html>
