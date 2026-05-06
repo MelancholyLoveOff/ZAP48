@@ -872,14 +872,17 @@
             <div class="header-overlay"></div>
             <div class="album-header-content">
                 <img id="albumDetailCover" src="https://i.imgur.com/AD3MbBi.png" alt="Capa do Álbum" />
-                <h1 id="albumDetailTitle">Nome do Álbum</h1>
-                <div id="albumNormalInfoContainer">
-                    <p id="albumDetailInfo">Por Artista • 2025</p>
-                    <button class="main-play-btn" style="margin: 16px auto 0;"><i class="fas fa-play" style="margin-left: 2px;"></i></button>
-                </div>
-                <div id="albumCountdownContainer" class="hidden">
-                    <div id="albumCountdownTimer" style="display:flex; gap:16px; margin-top:16px; justify-content:center;"></div>
-                    <p class="release-date-text" style="margin-top:8px;">Lançamento em <span id="albumCountdownReleaseDate"></span></p>
+                <div class="album-text-info">
+                    <p class="album-type-label">Álbum</p>
+                    <h1 id="albumDetailTitle">Nome do Álbum</h1>
+                    <div id="albumNormalInfoContainer">
+                        <p id="albumDetailInfo">Por Artista • 2025</p>
+                        <button class="main-play-btn" style="margin: 16px auto 0;"><i class="fas fa-play" style="margin-left: 2px;"></i></button>
+                    </div>
+                    <div id="albumCountdownContainer" class="hidden">
+                        <div id="albumCountdownTimer" style="display:flex; gap:16px; margin-top:16px; justify-content:center;"></div>
+                        <p class="release-date-text" style="margin-top:8px;">Lançamento em <span id="albumCountdownReleaseDate"></span></p>
+                    </div>
                 </div>
             </div>
         </header>
@@ -901,7 +904,7 @@
             <section id="studioSection" class="content-section active">
                 <h2 class="section-title">Estúdio</h2>
 
-                <!-- Auth Wrapper Atualizado com Toggle Login/Registro -->
+                <!-- Auth Wrapper -->
                 <div class="studio-login-wrapper" id="authWrapper">
                     <div id="loginPrompt">
                         <div class="studio-form-group">
@@ -940,6 +943,7 @@
                         <button class="studio-tab-btn active" data-form="release">Novo Lançamento</button>
                         <button class="studio-tab-btn" data-form="edit">Editar</button>
                         <button class="studio-tab-btn" data-form="artist">Novo Artista</button>
+                        <button class="studio-tab-btn" data-form="editArtist">Editar Artista</button>
                     </nav>
 
                     <!-- WYSIWYG Editor para Lançamentos -->
@@ -978,10 +982,17 @@
                                         <input type="datetime-local" id="wysiwygReleaseDate" class="wysiwyg-input" required style="width: auto; color: rgba(255,255,255,0.8); font-weight: 500; font-size: 14px; border-bottom: 1px dashed rgba(255,255,255,0.3); padding: 4px;" />
                                     </div>
 
-                                    <div style="margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 16px;">
-                                        <label style="font-size: 13px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                                            <input type="checkbox" id="wysiwygToggleDeluxe"> É versão Deluxe?
-                                        </label>
+                                    <div style="margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;" id="deluxeOptionsWrapper">
+                                        <select id="wysiwygReleaseNature" class="wysiwyg-select" style="font-size: 13px;">
+                                            <option value="original">Lançamento Original</option>
+                                            <option value="deluxe">É Versão Deluxe</option>
+                                        </select>
+                                        
+                                        <select id="wysiwygOriginalAlbumSelect" class="wysiwyg-select hidden" style="font-size: 13px;">
+                                            <option value="">Selecione o álbum base...</option>
+                                        </select>
+                                        
+                                        <button type="button" id="btnImportDeluxe" class="small-btn hidden" style="border-color: var(--spotify-green); color: var(--spotify-green);">Importar Faixas</button>
                                     </div>
                                 </div>
                             </div>
@@ -1096,6 +1107,49 @@
                         <button type="submit" class="submit-btn" id="submitNewArtist" style="width:100%;">Criar Artista</button>
                     </form>
 
+                    <!-- Editar Artista Existente -->
+                    <form id="editArtistForm" class="studio-form studio-form-content">
+                        <h3>Editar Perfil do Artista</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Ajuste o nome, troque a foto e defina a posição do corte da imagem para os banners e perfis.</p>
+                        
+                        <div class="studio-form-group">
+                            <label>Selecione o Artista</label>
+                            <select id="editArtistSelect" class="wysiwyg-select" style="width: 100%; border: 1px dashed rgba(255,255,255,0.3); padding: 14px; border-radius: 4px;">
+                                <!-- Populate dynamically -->
+                            </select>
+                        </div>
+
+                        <div id="editArtistFields" class="hidden">
+                            <div class="studio-form-group">
+                                <label>Nome do Artista</label>
+                                <input type="text" id="editArtistNameInput" required />
+                            </div>
+                            <div class="studio-form-group">
+                                <label>Nova Imagem (Capa/Foto de Perfil)</label>
+                                <input type="file" id="editArtistImageFile" accept="image/*" class="file-upload-input" style="margin-bottom: 8px; width: 100%;" />
+                                <input type="url" id="editArtistImageUrl" required />
+                            </div>
+                            <div class="studio-form-group">
+                                <label>Ajuste de Posição Vertical (Corte da Foto)</label>
+                                <input type="range" id="editArtistBgPosition" min="0" max="100" value="20" style="width:100%; margin-bottom: 8px; cursor: pointer;" />
+                                
+                                <div style="display: flex; gap: 16px; margin-top: 16px;">
+                                    <div style="flex: 1; text-align: center;">
+                                        <span style="font-size: 12px; color: #aaa;">Preview Perfil</span><br>
+                                        <img id="editArtistPreviewCircle" src="https://i.imgur.com/AD3MbBi.png" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: center 20%; margin-top: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);" />
+                                    </div>
+                                    <div style="flex: 2; text-align: center;">
+                                        <span style="font-size: 12px; color: #aaa;">Preview Capa</span><br>
+                                        <div id="editArtistPreviewHeader" style="width: 100%; height: 100px; border-radius: 4px; background-image: url('https://i.imgur.com/AD3MbBi.png'); background-size: cover; background-position: center 20%; margin-top: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <button type="submit" class="submit-btn" id="submitEditArtist" style="width: 100%;">Salvar Alterações</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </section>
         </main>
@@ -1168,19 +1222,6 @@
             <button class="small-btn" id="cancelExistingTrackBtn" style="width:100%; justify-content:center; margin-top:24px;">Fechar</button>
         </div>
     </div>
-    
-    <div id="selectOriginalAlbumModal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h3>Importar Deluxe</h3>
-            <div class="studio-form-group">
-                <select id="originalAlbumSelect"><option>Carregando...</option></select>
-            </div>
-            <div style="display:flex; gap:16px; margin-top:24px;">
-                <button class="small-btn" id="cancelImportBtn" style="flex:1; justify-content:center;">Cancelar</button>
-                <button class="submit-btn" id="confirmImportBtn" style="flex:1; margin:0;">Importar</button>
-            </div>
-        </div>
-    </div>
 
     <!-- PLAYER DE MÚSICA (OVERLAY ORIGINAL MELHORADO) -->
     <div id="musicPlayer" class="page-view hidden">
@@ -1249,7 +1290,7 @@ async function uploadImageToImgbb(file) {
     return data.data.url;
 }
 
-function setupImageUploadWithPreview(fileInputId, urlInputId, imgElementId, bgElementId) {
+function setupImageUploadWithPreview(fileInputId, urlInputId, imgElementId, bgElementId, onCompleteCb) {
     const fileInput = document.getElementById(fileInputId);
     const urlInput = document.getElementById(urlInputId);
     const imgElement = document.getElementById(imgElementId);
@@ -1267,6 +1308,7 @@ function setupImageUploadWithPreview(fileInputId, urlInputId, imgElementId, bgEl
                 urlInput.value = url;
                 if(imgElement) { imgElement.src = url; imgElement.style.opacity = '1'; }
                 if(bgElement) bgElement.style.backgroundImage = `url('${url}')`;
+                if(onCompleteCb) onCompleteCb(url);
             } catch (error) {
                 alert('Erro ao fazer upload da imagem: ' + error.message);
                 if(imgElement) imgElement.style.opacity = '1';
@@ -1428,9 +1470,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         openEditExistingTrackModalBtn, 
         toggleDeluxe,
         
-        // Elementos Cadastro de Jogador e Artista
+        // Elementos Cadastro/Edição de Jogador e Artista
         regUsernameInput, regPasswordInput, registerButton, showRegisterBtn, showLoginBtn, registerPrompt,
         newArtistForm, newArtistName, newArtistImageUrl, submitNewArtist,
+        editArtistForm, editArtistSelect, editArtistFields, editArtistNameInput, editArtistImageUrl,
+        editArtistBgPosition, editArtistPreviewCircle, editArtistPreviewHeader, submitEditArtist,
         
         // Elementos Batalha de Charts
         actionModal, modalArtistName, modalArtistId,
@@ -1628,6 +1672,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             newArtistImageUrl = document.getElementById('newArtistImageUrl');
             submitNewArtist = document.getElementById('submitNewArtist');
 
+            // Elementos Editar Artista
+            editArtistForm = document.getElementById('editArtistForm');
+            editArtistSelect = document.getElementById('editArtistSelect');
+            editArtistFields = document.getElementById('editArtistFields');
+            editArtistNameInput = document.getElementById('editArtistNameInput');
+            editArtistImageUrl = document.getElementById('editArtistImageUrl');
+            editArtistBgPosition = document.getElementById('editArtistBgPosition');
+            editArtistPreviewCircle = document.getElementById('editArtistPreviewCircle');
+            editArtistPreviewHeader = document.getElementById('editArtistPreviewHeader');
+            submitEditArtist = document.getElementById('submitEditArtist');
+
             actionModal = document.getElementById('actionModal');
             modalArtistName = document.getElementById('modalArtistName');
             modalArtistId = document.getElementById('modalArtistId');
@@ -1718,10 +1773,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const artistsMapById = new Map();
             const artistsList = (artistsRes.data || []).map(row => {
+                let rawUrl = row.image_url || 'https://i.imgur.com/AD3MbBi.png';
+                let cleanUrl = rawUrl;
+                let bgPos = '20';
+                
+                // Parse #pos= parameter for vertical positioning
+                if (rawUrl.includes('#pos=')) {
+                    [cleanUrl, bgPos] = rawUrl.split('#pos=');
+                }
+
                 const artist = {
                     id: row.id,
                     name: row.name || 'Artista Desconhecido',
-                    imageUrl: row.image_url || 'https://i.imgur.com/AD3MbBi.png', 
+                    img: cleanUrl, 
+                    rawUrl: rawUrl,
+                    bgPos: bgPos + '%',
                     RPGPoints: row.rpg_points || 0,
                     LastActive: row.last_active || null,
                     personalPoints: row.personal_points || 150 
@@ -1883,7 +1949,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             db.artists = (data.allArtists || []).map(artist => {
                 const artistEntry = {
                     ...artist,
-                    img: artist.imageUrl || 'https://i.imgur.com/AD3MbBi.png', 
                     albums: [], 
                     singles: [],
                     careerTotalStreams: 0 
@@ -2048,6 +2113,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (document.querySelector('.studio-tab-btn[data-form="edit"]')?.classList.contains('active')) {
                         populateEditableReleases();
                     }
+                    if (document.querySelector('.studio-tab-btn[data-form="editArtist"]')?.classList.contains('active')) {
+                        if (editArtistSelect && editArtistSelect.value) {
+                            editArtistSelect.dispatchEvent(new Event('change'));
+                        }
+                    }
                 }
 
                 const artistDetailView = document.getElementById('artistDetail');
@@ -2143,6 +2213,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                    populateEditableReleases();
                    editReleaseListContainer?.classList.remove('hidden');
                    editReleaseForm?.classList.add('hidden');
+              } else if (activeStudioTabButton?.dataset.form === 'editArtist') {
+                   // trigger refresh on edit artist tab if needed
               } else {
                   const currentlyActiveForm = document.querySelector('.studio-form-content.active');
                    if (!currentlyActiveForm) { 
@@ -2185,7 +2257,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         container.innerHTML = artists.map(artist => `
             <div class="artist-card" data-artist-name="${artist.name}">
-                <img src="${artist.img || artist.imageUrl || 'https://i.imgur.com/AD3MbBi.png'}" alt="${artist.name}" class="artist-card-img">
+                <img src="${artist.img}" alt="${artist.name}" class="artist-card-img" style="object-position: center ${artist.bgPos};">
                 <p class="artist-card-name">${artist.name}</p>
                 <span class="artist-card-type">Artista</span>
             </div>
@@ -2305,6 +2377,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         activeArtist = artist;
 
         document.getElementById('detailBg').style.backgroundImage = `url(${artist.img})`;
+        document.getElementById('detailBg').style.backgroundPosition = `center ${artist.bgPos}`;
         document.getElementById('detailName').textContent = artist.name;
 
         const now = new Date();
@@ -2562,7 +2635,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 resultCount++;
                 return `
                     <div class="artist-card" data-artist-name="${a.name}">
-                        <img src="${a.img}" alt="${a.name}" class="artist-card-img">
+                        <img src="${a.img}" alt="${a.name}" class="artist-card-img" style="object-position: center ${a.bgPos};">
                         <p class="artist-card-name">${a.name}</p>
                         <span class="artist-card-type">Artista</span>
                     </div>`;
@@ -2784,7 +2857,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <i class="fas ${iconClass}"></i>
                     </span>
                     <span style="position:absolute; top:16px; left:16px; font-weight:900; text-shadow:0 2px 4px rgba(0,0,0,0.8); font-size:18px;">#${currentRank}</span>
-                    <img src="${artist.img}" alt="${artist.name}" class="artist-card-img">
+                    <img src="${artist.img}" alt="${artist.name}" class="artist-card-img" style="object-position: center ${artist.bgPos};">
                     <p class="artist-card-name">${artist.name}</p>
                     <span class="artist-card-type">${displayPoints.toLocaleString('pt-BR')} pontos</span>
                 </div>`;
@@ -2793,14 +2866,83 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- 4. SISTEMA DO ESTÚDIO ---
 
+    function updateArtistEditPreviews() {
+        const url = editArtistImageUrl.value || 'https://i.imgur.com/AD3MbBi.png';
+        const pos = editArtistBgPosition.value + '%';
+        
+        editArtistPreviewCircle.src = url;
+        editArtistPreviewCircle.style.objectPosition = `center ${pos}`;
+        
+        editArtistPreviewHeader.style.backgroundImage = `url('${url}')`;
+        editArtistPreviewHeader.style.backgroundPosition = `center ${pos}`;
+    }
+
     function initializeStudio() {
         setupImageUploadWithPreview('wysiwygCoverFile', 'wysiwygCoverUrl', 'wysiwygCoverImg', 'wysiwygBg');
         setupImageUploadWithPreview('editReleaseCoverFile', 'editReleaseCoverUrl', 'editWysiwygCoverImg', 'editWysiwygBg');
         setupImageUploadWithPreview('newArtistImageFile', 'newArtistImageUrl');
+        
+        setupImageUploadWithPreview('editArtistImageFile', 'editArtistImageUrl', null, null, (url) => {
+            updateArtistEditPreviews();
+        });
 
         wysiwygArtistSelect?.addEventListener('change', (e) => {
             const artist = db.artists.find(a => a.id === e.target.value);
             if(artist && wysiwygArtistImg) wysiwygArtistImg.src = artist.img;
+        });
+
+        const releaseNatureSelect = document.getElementById('wysiwygReleaseNature');
+        const originalAlbumSelectInline = document.getElementById('wysiwygOriginalAlbumSelect');
+        const btnImportDeluxe = document.getElementById('btnImportDeluxe');
+
+        releaseNatureSelect?.addEventListener('change', (e) => {
+            if (e.target.value === 'deluxe') {
+                const artistId = document.getElementById('wysiwygArtistSelect')?.value;
+                if (!artistId) {
+                    alert("Selecione o Artista Principal primeiro.");
+                    e.target.value = 'original';
+                    return;
+                }
+                const artistAlbums = db.albums.filter(a => a.artistId === artistId);
+                if (artistAlbums.length === 0) {
+                    alert("Nenhum álbum anterior encontrado para este artista.");
+                    e.target.value = 'original';
+                    return;
+                }
+                
+                originalAlbumSelectInline.innerHTML = '<option value="">Selecione o álbum base...</option>' + 
+                    artistAlbums.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate))
+                                .map(album => `<option value="${album.id}">${album.title}</option>`).join('');
+                
+                originalAlbumSelectInline.classList.remove('hidden');
+                btnImportDeluxe.classList.remove('hidden');
+            } else {
+                originalAlbumSelectInline.classList.add('hidden');
+                btnImportDeluxe.classList.add('hidden');
+                originalAlbumSelectInline.innerHTML = '';
+            }
+        });
+
+        document.getElementById('wysiwygArtistSelect')?.addEventListener('change', () => {
+            if (releaseNatureSelect && releaseNatureSelect.value === 'deluxe') {
+                releaseNatureSelect.value = 'original';
+                releaseNatureSelect.dispatchEvent(new Event('change'));
+                const albumTracklistEditor = document.getElementById('wysiwygTracklistEditor');
+                if(albumTracklistEditor) populateTracklistEditor(albumTracklistEditor, []);
+            }
+        });
+
+        btnImportDeluxe?.addEventListener('click', () => {
+            const albumIdToImport = originalAlbumSelectInline.value;
+            const albumTracklistEditor = document.getElementById('wysiwygTracklistEditor'); 
+            const albumTitle = document.getElementById('wysiwygTitle'); 
+
+            if (!albumIdToImport) { alert("Selecione um álbum para importar."); return; }
+            const album = db.albums.find(a => a.id === albumIdToImport);
+            if (!album) return;
+
+            populateTracklistEditor(albumTracklistEditor, album.tracks);
+            if (albumTitle && !albumTitle.value.includes('Deluxe')) albumTitle.value = `${album.title} (Deluxe)`;
         });
 
         loginButton?.addEventListener('click', () => {
@@ -2826,6 +2968,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         newArtistForm?.addEventListener('submit', handleArtistSubmit);
+        editArtistForm?.addEventListener('submit', handleEditArtistSubmit);
+
+        editArtistSelect?.addEventListener('change', (e) => {
+            const artistId = e.target.value;
+            if (!artistId) {
+                editArtistFields?.classList.add('hidden');
+                return;
+            }
+            const artist = db.artists.find(a => a.id === artistId);
+            if (artist) {
+                editArtistFields?.classList.remove('hidden');
+                editArtistNameInput.value = artist.name;
+                editArtistImageUrl.value = artist.rawUrl; // Mantém a URL pura sem o #pos para o input
+                editArtistBgPosition.value = parseInt(artist.bgPos) || 20;
+                updateArtistEditPreviews();
+            }
+        });
+
+        editArtistImageUrl?.addEventListener('input', updateArtistEditPreviews);
+        editArtistBgPosition?.addEventListener('input', updateArtistEditPreviews);
 
         studioTabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
@@ -2848,6 +3010,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     editReleaseForm?.classList.add('hidden');
                 } else if (formTarget === 'artist') {
                     targetElementId = 'newArtistForm';
+                } else if (formTarget === 'editArtist') {
+                    targetElementId = 'editArtistForm';
+                    if (editArtistSelect && editArtistSelect.value) {
+                        editArtistSelect.dispatchEvent(new Event('change'));
+                    }
                 }
 
                 const targetElement = document.getElementById(targetElementId);
@@ -3090,6 +3257,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    async function handleEditArtistSubmit(event) {
+        event.preventDefault();
+        const artistId = editArtistSelect?.value;
+        const newName = editArtistNameInput?.value.trim();
+        const newUrl = editArtistImageUrl?.value.trim();
+        const newPos = editArtistBgPosition?.value;
+
+        if (!artistId || !newName || !newUrl) {
+            alert("Preencha todos os campos do artista.");
+            return;
+        }
+
+        submitEditArtist.disabled = true;
+        submitEditArtist.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        const finalUrl = `${newUrl}#pos=${newPos}`;
+
+        try {
+            const { error } = await supabaseClient.from('artists').update({
+                name: newName,
+                image_url: finalUrl
+            }).eq('id', artistId);
+
+            if (error) throw error;
+            alert("Artista atualizado com sucesso!");
+            await refreshAllData();
+        } catch (err) {
+            alert("Erro ao atualizar artista: " + err.message);
+        } finally {
+            submitEditArtist.disabled = false;
+            submitEditArtist.textContent = 'Salvar Alterações';
+        }
+    }
+
     function loginPlayer(username, password) {
         if (!username || !password) {
             alert("Por favor, insira nome de usuário e senha.");
@@ -3099,6 +3300,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (foundPlayer && foundPlayer.password === password) {
             currentPlayer = foundPlayer;
+            
+            // SALVAR LOGIN NO CACHE
+            localStorage.setItem('spotifyRpg_loggedInPlayerId', currentPlayer.id);
 
             document.getElementById('playerName').textContent = currentPlayer.name;
             loginPrompt?.classList.add('hidden');
@@ -3125,6 +3329,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function logoutPlayer() {
         currentPlayer = null;
+        
+        // REMOVER LOGIN DO CACHE AO SAIR
+        localStorage.removeItem('spotifyRpg_loggedInPlayerId');
 
         const playerNameElement = document.getElementById('playerName');
         if (playerNameElement) playerNameElement.textContent = '';
@@ -3146,6 +3353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (editReleaseList) editReleaseList.innerHTML = '<p class="empty-state-small">Faça login para ver seus lançamentos.</p>';
         if (editArtistFilterSelect) editArtistFilterSelect.innerHTML = '<option value="all">Todos os Artistas</option>';
         if(wysiwygArtistSelect) wysiwygArtistSelect.innerHTML = '<option value="">Selecione...</option>';
+        if(editArtistSelect) { editArtistSelect.innerHTML = '<option value="">Selecione...</option>'; editArtistFields?.classList.add('hidden'); }
 
          editReleaseForm?.classList.add('hidden');
          editReleaseListContainer?.classList.remove('hidden');
@@ -3181,6 +3389,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (editArtistFilterSelect) {
             editArtistFilterSelect.innerHTML = `<option value="all">Todos os Artistas</option>${optionsHtml}`;
         }
+        if (editArtistSelect) {
+            if (playerArtistIds.length === 0) {
+                editArtistSelect.innerHTML = `<option value="">Nenhum artista (Crie na aba Novo Artista)</option>`;
+                editArtistFields?.classList.add('hidden');
+            } else {
+                editArtistSelect.innerHTML = `<option value="" disabled selected>Selecione o Artista que deseja editar...</option>${optionsHtml}`;
+            }
+        }
     }
 
     // --- Funções de Ações / Batalha de Charts ---
@@ -3198,7 +3414,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         artistActionsList.innerHTML = playerArtists.map(artist => `
             <div class="edit-release-item" data-artist-id="${artist.id}" style="display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 4px; cursor: default;">
-                <img src="${artist.img}" alt="${artist.name}" class="edit-release-cover" style="width: 48px; height: 48px; object-fit: cover; border-radius: 50%;">
+                <img src="${artist.img}" alt="${artist.name}" class="edit-release-cover" style="width: 48px; height: 48px; object-fit: cover; object-position: center ${artist.bgPos}; border-radius: 50%;">
                 <div class="edit-release-info" style="flex-grow: 1;">
                     <span class="edit-release-title" style="display: block; font-weight: 600; color: #fff;">${artist.name}</span>
                     <span class="edit-release-artist" style="display: block; font-size: 12px; color: #aaa;">Status de Imagem: <strong style="color:var(--text-primary)">${artist.personalPoints || 150} pontos</strong></span>
@@ -4060,11 +4276,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeExistingTrackModal();
     }
 
-
     // --- FUNÇÕES DE SUBMISSÃO ---
     function initAlbumForm() {
          if (wysiwygTracklistEditor) wysiwygTracklistEditor.innerHTML = '<p style="color: var(--text-subdued); text-align: center; font-size: 14px; margin-top: 24px;">Nenhuma faixa adicionada.</p>';
-         if (wysiwygToggleDeluxe) wysiwygToggleDeluxe.checked = false; 
+         const releaseNature = document.getElementById('wysiwygReleaseNature');
+         if (releaseNature) {
+             releaseNature.value = 'original';
+             releaseNature.dispatchEvent(new Event('change'));
+         }
          if (wysiwygTitle) wysiwygTitle.value = '';
          if (wysiwygCoverUrl) wysiwygCoverUrl.value = 'https://i.imgur.com/AD3MbBi.png';
          if (wysiwygCoverImg) wysiwygCoverImg.src = 'https://i.imgur.com/AD3MbBi.png';
@@ -4075,9 +4294,9 @@ document.addEventListener('DOMContentLoaded', async () => {
          if (wysiwygReleaseDate) wysiwygReleaseDate.value = now.toISOString().slice(0, 16);
 
          updateTrackNumbers(wysiwygTracklistEditor); 
-     }
+    }
 
-     async function handleWysiwygSubmit(event) {
+    async function handleWysiwygSubmit(event) {
          event.preventDefault();
          if (!submitWysiwygRelease) return;
 
@@ -4145,7 +4364,7 @@ document.addEventListener('DOMContentLoaded', async () => {
              const nameFieldName = isAlbum ? 'Nome do Álbum' : 'Nome do Single/EP';
              const coverFieldName = isAlbum ? 'Capa do Álbum' : 'Capa';
              const linkFieldName = isAlbum ? 'Álbuns' : 'Singles e EPs';
-             const isDeluxe = wysiwygToggleDeluxe?.checked;
+             const isDeluxe = document.getElementById('wysiwygReleaseNature')?.value === 'deluxe';
 
              const releaseRecordFields = { [nameFieldName]: title, "Artista": [artistId], [coverFieldName]: [{ "url": coverUrl }], "Data de Lançamento": releaseDateISO };
              if (isDeluxe) releaseRecordFields["É deluxe?"] = true;
@@ -4183,7 +4402,7 @@ document.addEventListener('DOMContentLoaded', async () => {
              submitWysiwygRelease.disabled = false;
              submitWysiwygRelease.innerHTML = `<i class="fas fa-check"></i> Lançar Projeto`;
          }
-     }
+    }
 
     // --- FUNÇÕES DE EDIÇÃO/EXCLUSÃO ---
     function populateEditableReleases() {
@@ -4246,6 +4465,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (editAlbumTracklistEditor && editTracklistActions) {
             populateTracklistEditor(editAlbumTracklistEditor, release.tracks);
+             if (typeof Sortable !== 'undefined') {
+                 if (editAlbumTracklistSortable) editAlbumTracklistSortable.destroy();
+                 editAlbumTracklistSortable = Sortable.create(editAlbumTracklistEditor, { animation: 150, handle: '.drag-handle', onEnd: () => updateTrackNumbers(editAlbumTracklistEditor) });
+             }
         }
 
         editReleaseListContainer?.classList.add('hidden');
@@ -4412,7 +4635,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) { alert(`Erro: ${error.message}`); closeDeleteConfirmModal(); } 
         finally { confirmDeleteBtn.disabled = false; confirmDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Sim, Apagar'; }
     }
-
 
     // --- 5. LÓGICA DO PLAYER DE MÚSICA ---
     function openPlayer(songId, clickedElement) {
@@ -4657,7 +4879,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         startSimulationTimer();
     }
 
-
     // --- 6. INICIALIZAÇÃO GERAL ---
    function initializeBodyClickListener() {
         document.body.addEventListener('click', (event) => {
@@ -4739,6 +4960,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!data) return; 
 
         if (!initializeData(data)) return; 
+
+        // AUTO-LOGIN: Restaura a sessão se o ID estiver no localStorage
+        const savedPlayerId = localStorage.getItem('spotifyRpg_loggedInPlayerId');
+        if (savedPlayerId) {
+            const foundPlayer = db.players.find(p => p.id === savedPlayerId);
+            if (foundPlayer) {
+                currentPlayer = foundPlayer;
+                const playerNameElement = document.getElementById('playerName');
+                if (playerNameElement) playerNameElement.textContent = currentPlayer.name;
+                
+                document.getElementById('loginPrompt')?.classList.add('hidden');
+                document.getElementById('registerPrompt')?.classList.add('hidden');
+                document.getElementById('loggedInInfo')?.classList.remove('hidden');
+                document.getElementById('studioLaunchWrapper')?.classList.remove('hidden');
+                
+                document.getElementById('actionsLoginPrompt')?.classList.add('hidden');
+                document.getElementById('actionsWrapper')?.classList.remove('hidden');
+
+                populateArtistSelector(currentPlayer.id);
+                displayArtistActions();
+            }
+        }
 
         try {
             renderRPGChart();
